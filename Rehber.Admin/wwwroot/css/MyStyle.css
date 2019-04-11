@@ -1,0 +1,117 @@
+﻿
+
+#menu li a:hover {
+    background-color: #00C6D7;
+}
+
+.active {
+    background-color: #00C6D7;
+}
+
+.grid-1 {
+    /*margin-bottom:10px;
+    margin-top:10px;*/
+    margin: 0px;
+}
+
+.tablesStyle {
+    margin-top: 10px;
+}
+
+.input-search input {
+    padding: 10px !important;
+    color: #337ab7 !important;
+    font-size: 15px !important;
+}
+
+._thead th {
+    color: #337ab7 !important;
+}
+
+.h3-arama {
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.form-body {
+    padding-top: 0px;
+    margin-top: -32px;
+}
+
+.jqx-fill-state-pressed {
+    background: #00C6D7;
+    color: white;
+    padding-left: 5px;
+    transition: all linear 0.4s;
+}
+
+.jqx-tree {
+    border-width: 1px;
+    border-radius: 20px;
+}
+
+.jqx-tree-item {
+    font-family: auto;
+    font-size: 20px;
+}
+
+#contentHierarchicalUnit {
+    top: 6%;
+    left: 40%;
+    position: fixed;
+}
+
+.btn {
+    border-radius: 20px;
+    width: 150px;
+}
+
+.btn-pri {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+button:active
+{
+    background-color:transparent;
+    background:none;
+}
+/*.btn:hover {
+    background-color: #4a4949;
+}*/
+
+#resetTree {
+    top: 6%;
+    left: 83%;
+    position: fixed;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+}
+#resetTree:hover {
+
+
+  }
+
+.note {
+    top: 13%;
+    left: 83%;
+    position: fixed;
+    font-size: 15px;
+    border-radius: 5px;
+    border-color: red;
+    display:none;
+    transition: all linear 0.4s;
+}
+
+.modal-header .close {
+    margin-top: -23px;
+}
+.modal-footer .btn + .btn {
+     margin-bottom: 10px; 
+     margin-left: 0px; 
+}
+label
+{
+    color:black;
+}
