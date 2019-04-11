@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rehber.Model", "Rehber.Mode
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{CD5C1043-2B08-45BE-9DB5-37A63C2F5962}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rehber.Services.UsersApi", "Rehber.Services.Users\Rehber.Services.UsersApi.csproj", "{8DF6FA1C-0707-4520-815D-36A58EBDEF9E}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rehber.Services.Elasticsearch", "Rehber.Services.Elasticsearch\Rehber.Services.Elasticsearch.csproj", "{0984703A-C671-4A8C-92AC-0E4AF0664CDF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rehber.Services.UnitsApi", "Rehber.Services.Units\Rehber.Services.UnitsApi.csproj", "{71A1531A-3D69-4C52-BCA3-935C0F88DD6D}"
@@ -18,6 +16,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rehber.Services.ImagesApi", "Rehber.Services.Images\Rehber.Services.ImagesApi.csproj", "{B19A7E58-47DB-4FB9-B1A7-A4ED6505185D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rehber.WebApps.Admin", "Rehber.Admin\Rehber.WebApps.Admin.csproj", "{8BA8B54D-1BB7-4439-817A-E1E730D6F0C4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rehber.Services.EmployeesApi", "Rehber.Services.Employees\Rehber.Services.EmployeesApi.csproj", "{DB483C7C-86B9-4931-8FBE-F8C163A994CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,10 +33,6 @@ Global
 		{07B978D1-889A-4D0D-B177-827CFB9ECFF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07B978D1-889A-4D0D-B177-827CFB9ECFF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07B978D1-889A-4D0D-B177-827CFB9ECFF6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8DF6FA1C-0707-4520-815D-36A58EBDEF9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8DF6FA1C-0707-4520-815D-36A58EBDEF9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8DF6FA1C-0707-4520-815D-36A58EBDEF9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8DF6FA1C-0707-4520-815D-36A58EBDEF9E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0984703A-C671-4A8C-92AC-0E4AF0664CDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0984703A-C671-4A8C-92AC-0E4AF0664CDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0984703A-C671-4A8C-92AC-0E4AF0664CDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -53,15 +49,19 @@ Global
 		{8BA8B54D-1BB7-4439-817A-E1E730D6F0C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8BA8B54D-1BB7-4439-817A-E1E730D6F0C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8BA8B54D-1BB7-4439-817A-E1E730D6F0C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB483C7C-86B9-4931-8FBE-F8C163A994CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB483C7C-86B9-4931-8FBE-F8C163A994CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB483C7C-86B9-4931-8FBE-F8C163A994CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB483C7C-86B9-4931-8FBE-F8C163A994CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{8DF6FA1C-0707-4520-815D-36A58EBDEF9E} = {CD5C1043-2B08-45BE-9DB5-37A63C2F5962}
 		{0984703A-C671-4A8C-92AC-0E4AF0664CDF} = {CD5C1043-2B08-45BE-9DB5-37A63C2F5962}
 		{71A1531A-3D69-4C52-BCA3-935C0F88DD6D} = {CD5C1043-2B08-45BE-9DB5-37A63C2F5962}
 		{B19A7E58-47DB-4FB9-B1A7-A4ED6505185D} = {CD5C1043-2B08-45BE-9DB5-37A63C2F5962}
+		{DB483C7C-86B9-4931-8FBE-F8C163A994CE} = {CD5C1043-2B08-45BE-9DB5-37A63C2F5962}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BFF12E07-8177-49C8-918B-C3BD8B4926BB}
