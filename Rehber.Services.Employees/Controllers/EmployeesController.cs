@@ -11,6 +11,10 @@ using System.Net;
 using System.Threading;
 using Rehber.Model.DataModels;
 using Rehber.Data.Contexts;
+using System.Net.Http;
+using System.Runtime;
+using Microsoft.Extensions.Configuration;
+using Rehber.Core.Helpers;
 
 namespace Rehber.Services.EmployeesApi.Controllers
 {
@@ -19,28 +23,46 @@ namespace Rehber.Services.EmployeesApi.Controllers
     public class EmployeesController : ControllerBase
     {
 
-        private readonly IBus mybus;
-        RehberEmployeeServiceDbContext db = new RehberEmployeeServiceDbContext();
+        private readonly IBus _bus;
+        private readonly RehberEmployeeServiceDbContext _db = null;
         private readonly IRequestClient<IEmployeeAdded, IEmployeeAdded> _requestClient;
+        private readonly IConfiguration _configuration;
 
-        public EmployeesController(IRequestClient<IEmployeeAdded, IEmployeeAdded> requestClient, IBus busbus)
+
+        public EmployeesController(IRequestClient<IEmployeeAdded, IEmployeeAdded> requestClient, IBus bus, IConfiguration configuration)
         {
-            mybus = busbus;
+            _bus = bus;
+            _db = new RehberEmployeeServiceDbContext();
+            _configuration = configuration;
             _requestClient = requestClient;
         }
         // GET api/values
-        [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        [HttpGet("{employeeId}")]
+        public ActionResult<IEnumerable<string>> Get(int employeeId)
         {
-            var PersonnelList = db.Employees.ToList();
-            return new JsonResult(PersonnelList);
-        }
+            try
+            {
+                var apiHelper = new UnitsApiHelper();
+                var employee = _db.Employees.Where(x => x.EmployeeId == employeeId).FirstOrDefault();
+                if (employee != null)
+                {
+                    var unit = apiHelper.GetById(employeeId);
+                    if (unit != null)
+                    {
+                        return Ok(employee.ToViewModel(unit.UnitName));
+                    }
+                    return Ok(employee);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
-        {
-            return "value";
         }
 
         // POST api/values
@@ -49,35 +71,51 @@ namespace Rehber.Services.EmployeesApi.Controllers
         {
             if (employee != null)
             {
-                db.Employees.Add(employee);
-                db.SaveChanges();
-                await mybus.Publish<IEmployeeAdded>(new { Employee = employee });
+                _db.Employees.Add(employee);
+                _db.SaveChanges();
+                await _bus.Publish<IEmployeeAdded>(new { Employee = employee });
                 return Ok(employee);
             }
             return BadRequest();
         }
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public async Task<IActionResult> PutAsync([FromBody] Employees employee)
         {
+            if (employee != null)
+            {
+                _db.Employees.Update(employee);
+                _db.SaveChanges();
+                await _bus.Publish<IEmployeeUpdated>(new { Employee = employee });
+                return Ok(employee);
+            }
+            return BadRequest();
         }
 
-        // DELETE api/values/5
+        // DELETE api/123
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAsync(int id, CancellationToken cancellationToken)
+        public async Task<IActionResult> DeleteAsync(int employeeId)
         {
             try
             {
-                await mybus.Publish<AddUser>(new { UserId = 32 });
-
+                if (employeeId > 0)
+                {
+                    Employees employee = new Employees() { EmployeeId = employeeId };
+                    _db.Employees.Attach(employee);
+                    _db.Employees.Remove(employee);
+                    _db.SaveChanges();
+                    await _bus.Publish<IEmployeeDeleted>(new { EmployeeId = employeeId });
+                }
                 //await _requestClient.Request(new { UserId = id }, cancellationToken);
-
-                return Accepted(33);
+                return Ok();
             }
             catch (RequestTimeoutException exception)
             {
                 return StatusCode((int)HttpStatusCode.RequestTimeout);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
             }
         }
     }

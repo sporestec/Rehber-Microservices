@@ -16,7 +16,28 @@ namespace Rehber.Services.Elasticsearch
             _elasticsearchClient = new ElasticsearchClient();
         }
 
-        public void IndexAllEmployees() {
+        public void IndexAllEmployeesAndUnits() {
+            RehberUnitServiceDbContext unitsContext = new RehberUnitServiceDbContext();
+            RehberEmployeeServiceDbContext employeesContext = new RehberEmployeeServiceDbContext();
+
+            var units = unitsContext.Units.ToList();
+            var employees = employeesContext.Employees.ToList();
+
+            foreach (var employee in employees)
+            {
+                var unit = units.Where(r => r.UnitId == employee.UnitId).FirstOrDefault();
+                var view = employee.ToViewModel(unit?.UnitName);
+                _elasticsearchClient.IndexEmployee(employee);
+            }
+            foreach (var unit in units)
+            {
+                _elasticsearchClient.IndexUnit(unit);
+            }
+
+        }
+
+        public void IndexAllEmployees()
+        {
             RehberEmployeeServiceDbContext context = new RehberEmployeeServiceDbContext();
             var employees = context.Employees.ToList();
             foreach (var employee in employees)
@@ -24,6 +45,7 @@ namespace Rehber.Services.Elasticsearch
                 _elasticsearchClient.IndexEmployee(employee);
             }
         }
+
 
         public void IndexAllUnits()
         {

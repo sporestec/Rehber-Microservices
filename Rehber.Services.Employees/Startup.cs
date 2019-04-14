@@ -26,6 +26,9 @@ namespace Rehber.Services.EmployeesApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+
+
             // Add framework services
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
@@ -45,6 +48,8 @@ namespace Rehber.Services.EmployeesApi
                 new MessageRequestClient<IEmployeeAdded, IEmployeeAdded>(x.GetRequiredService<IBus>(), serviceAddress, timeout, timeout));
 
             bus.Start();
+
+            services.AddSingleton<IConfiguration>(Configuration);
 
         }
 
