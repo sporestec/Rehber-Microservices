@@ -13,7 +13,7 @@ namespace Rehber.Services.Elasticsearch.MasstransitConsumers
 
         public Task Consume(ConsumeContext<IEmployeeAdded> context)
         {
-            Elastic elastic = new Elastic();
+            ElasticsearchClient elastic = new ElasticsearchClient();
             elastic.IndexEmployee(context.Message.Employee);
             return Task.CompletedTask;
         }

@@ -1,4 +1,5 @@
 ﻿using Rehber.Model.MessageContracts;
+using Rehber.Model.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -19,5 +20,6 @@ namespace Rehber.Model.DataModels
 
         public Units Parent { get; set; }
         public ICollection<Units> InverseParent { get; set; }
+
     }
 }
