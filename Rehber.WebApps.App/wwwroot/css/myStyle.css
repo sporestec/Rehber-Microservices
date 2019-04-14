@@ -21,13 +21,6 @@ label
         display: none;
     }
 
-.table tbody > tr > td.vert-align {
-    vertical-align: middle;
-}
-
-table.table {
-    border: none;
-}
 
 #kisiListesi_wrapper {
     overflow-x: scroll;
@@ -44,8 +37,7 @@ h4{
 
 #jqxTree {
     width: 100%;
-    height: 300px;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 .jqx-fill-state-pressed {
     border-color: #DFE9F0;
@@ -59,4 +51,15 @@ h4{
 .jqx-item {
     font-size: 18px;
     font-family: 'Voltaire', sans-serif;
+}
+
+
+
+#result
+{
+    overflow:auto;
+}
+body, html
+{
+    overflow:auto;
 }

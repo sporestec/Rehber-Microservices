@@ -58,7 +58,7 @@ namespace Rehber.Services.Elasticsearch.Controllers
         [HttpGet, Route("{name}/unit/{unitId}")]
         public ActionResult<IEnumerable<string>> GetByNameAndUnitId(string name, int unitId)
         {
-            var employees = _elasticClient.GetEmployeesByNameAndUnitId(name, unitId);
+           var employees = _elasticClient.GetEmployeesByNameAndUnitId(name, unitId);
             if (employees != null && employees.Count > 0)
             {
                 return Ok(employees);

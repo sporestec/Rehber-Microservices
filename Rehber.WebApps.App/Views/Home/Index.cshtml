@@ -1,149 +1,31 @@
-﻿@{
-    Layout = null;
-}
+﻿<div class="row scroll">
+    <div id="sonuc" class="col-md-12 col-sm-12 col-xs-12">
+        <div class="row">
+            <div id="container" class="col-md-12 col-sm-12 col-xs-12">
+                <div id="kisiListesi_wrapper" class="dataTables_wrapper no-footer">
+                    <table id="kisiListesi" class="scroll table table-bordered table-striped table-hover dataTable no-footer" style="background-color: whitesmoke;" role="grid">
+                        <thead>
+                            <tr  class="active" role="row">
+                                <th class="col-md-1 col-sm-1 col-xs-1 text-center sorting" tabindex="0" aria-controls="kisiListesi" rowspan="1" colspan="1" aria-label="Tel. No: activate to sort column ascending" style="width: 43px;">Tel. No</th>
+                                <th class="col-md-3 col-sm-3 col-xs-3 sorting" tabindex="0" aria-controls="kisiListesi" rowspan="1" colspan="1" aria-label="Ad Soyad / Ünvan Görev: activate to sort column ascending" style="width: 202px;">Ad Soyad / Ünvan Görev</th>
+                                <th class="col-md-2 col-sm-2 col-xs-2 hidden-xs sorting" tabindex="0" aria-controls="kisiListesi" rowspan="1" colspan="1" aria-label="Ek Bilgi: activate to sort column ascending" style="width: 122px;">Ek Bilgi</th>
+                                <th class="col-md-3 col-sm-3 col-xs-3 sorting" tabindex="0" aria-controls="kisiListesi" rowspan="1" colspan="1" aria-label="E-posta / Web: activate to sort column ascending" style="width: 202px;">E-posta / Web</th>
+                                <th class="col-md-3 col-sm-3 col-xs-3 sorting" tabindex="0" aria-controls="kisiListesi" rowspan="1" colspan="1" aria-label="Birim: activate to sort column ascending" style="width: 122px;">Birim</th>
+                            </tr>
+                        </thead>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Sakarya Rehber</title>
-    <!-- Meta tag Keywords -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords" content="Simple Statistics Responsive Widget,Login form widgets, Sign up Web forms , Login signup Responsive web form,Flat Pricing table,Flat Drop downs,Registration Forms,News letter Forms,Elements" />
-    <!-- Meta tag Keywords -->
-    <!-- css files -->
+                        <tbody id="tableContent">
+                       
+                        </tbody>
 
-
-    <link href="~/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="~/css/style.css" rel="stylesheet" type="text/css" media="all">
-
-    <!-- online-fonts -->
-    <link href="//fonts.googleapis.com/css?family=Voltaire" rel="stylesheet">
-    <!--//online-fonts -->
-    <!--Tree View Style-->
-
-    <link href="~/css/jqx.base.css" bh type="text/css" rel="stylesheet" />
-    <link href="~/css/demos.css" type="text/css" rel="stylesheet" />
-    <link href="~/css/jqx.apireference.css" type="text/css" rel="stylesheet" />
-    <link href="~/css/jqxmenustyle.css" type="text/css" rel="stylesheet" />
-    <!--Tree View Style-->
-    <!--Custom Style-->
-    <link href="~/css/myStyle.css" rel="stylesheet" type="text/css" />
-
-    <script src="~/js/jquery-1.10.2.min.js" type="text/javascript"></script>
-
-    <script src="~/jqwidgets/jqxcore.js" type="text/javascript"></script>
-    <script src="~/jqwidgets/jqxcore.elements.js" type="text/javascript"></script>
-    <script src="~/jqwidgets/jqxtree.js" type="text/javascript"></script>
-    <script src="~/jqwidgets/jqxdata.js" type="text/javascript"></script>
-    <script src="~/js/plugins.js" type="text/javascript"></script>
-
-
-</head>
-<body>
-
-    <div class="panel panel-inverse" style="margin-top: 100px;">
-        <div class="panel-heading" style="background: url(/Content/img/bg.PNG); height: 60px !important; border-top-left-radius: 10px; border-top-right-radius: 10px; padding-top: 10px;">
-            <h2>
-                <i class="fa fa-book"></i>
-                <b>Rehber</b>
-            </h2>
-        </div>
-        <div class="panel-body" style="background-color: #dfe9f0; margin: 0; padding: 0;">
-            <div class="row">
-                <div class="col-md-6 form-horizontal" style="border-right: 1px solid silver;">
-                    <div class="col-md-12 text-center">
-                        <h4>
-                            <b>Arama Kriteri</b>
-                        </h4>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-sm-6 col-md-offset-3 col-sm-offset-3 text-center">
-                            <input id="txtArama" type="text" class="form-control" placeholder="">
-                        </div>
-                        <div class="col-sm-3">
-                        </div>
-                    </div>
-
-                   
-                </div>
-                <div class="col-md-6 form-horizontal">
-
-                    <div class="col-md-12 text-center">
-                        <h4>
-                            <b>Birime Göre Arama</b>
-
-                        </h4>
-
-
-                       <div id="contentHierarchicalUnit">
-
-                        <div id="jqxTree">
-
-                        </div>
-                    </div>
-
+                  
+                    </table>
                 </div>
 
-                    <div class="form-group birimDiv">
-
-
-                        <div class="col-sm-3">
-                        </div>
-                    </div>
-
-                    <div id="birimListeleri"></div>
-                </div>
             </div>
-
-            <div class="row">
-                <div id="sonuc" class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="row">
-                        <div id="container" class="col-md-12 col-sm-12 col-xs-12">
-                            <div id="kisiListesi_wrapper" class="dataTables_wrapper no-footer">
-                                <table id="kisiListesi" class="table table-bordered table-striped table-hover dataTable no-footer" style="background-color: whitesmoke;" role="grid">
-                                    <thead>
-                                        <tr class="active" role="row"><th class="col-md-1 text-center sorting" tabindex="0" aria-controls="kisiListesi" rowspan="1" colspan="1" aria-label=": activate to sort column ascending" style="width: 43px;"></th><th class="col-md-1 col-sm-1 col-xs-1 text-center sorting" tabindex="0" aria-controls="kisiListesi" rowspan="1" colspan="1" aria-label="Tel. No: activate to sort column ascending" style="width: 43px;">Tel. No</th><th class="col-md-3 col-sm-3 col-xs-3 sorting" tabindex="0" aria-controls="kisiListesi" rowspan="1" colspan="1" aria-label="Ad Soyad / Ünvan Görev: activate to sort column ascending" style="width: 202px;">Ad Soyad / Ünvan Görev</th><th class="col-md-2 col-sm-2 col-xs-2 hidden-xs sorting" tabindex="0" aria-controls="kisiListesi" rowspan="1" colspan="1" aria-label="Ek Bilgi: activate to sort column ascending" style="width: 122px;">Ek Bilgi</th><th class="col-md-3 col-sm-3 col-xs-3 sorting" tabindex="0" aria-controls="kisiListesi" rowspan="1" colspan="1" aria-label="E-posta / Web: activate to sort column ascending" style="width: 202px;">E-posta / Web</th><th class="col-md-3 col-sm-3 col-xs-3 sorting" tabindex="0" aria-controls="kisiListesi" rowspan="1" colspan="1" aria-label="Birim: activate to sort column ascending" style="width: 122px;">Birim</th></tr>
-                                    </thead>
-
-                                    <tbody></tbody>
-                                </table>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    
-
-                </div>
-            </div>
-
         </div>
-        <div class="panel-footer" style="background-color: #dfe9f0; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
-            <ul>
-                <li>
-                    IP telefon sisteminde yer alan 4 haneli dahili numaralar DID (direkt arama) özelliğine sahip olup, kurum dışından 0.264.295XXXX şeklinde ulaşılabilir.
-                </li>
-                <li>Bu ekranda görünen tüm veriler Teknik ve İdari Hizmetler Şube Müdürlüğü tarafından sağlanmaktadır.</li>
-                <li>Görünen bilgilerde bir hata olduğunu düşünüyorsanız lütfen 5124 nolu telefon ile bağlantı kurunuz.</li>
-            </ul>
-        </div>
+
+
+
     </div>
-
-    @*<div class="All">
-            <div class="row">
-                <div class="col-md-6 formStyle">
-                    <form>
-                        <div class="form-group">
-                            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-                        </div>
-                    </form>
-
-                </div>
-            </div>
-
-        </div>*@
-  
-</body>
-</html>
+</div>

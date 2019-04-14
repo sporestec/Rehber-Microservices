@@ -1,73 +1,98 @@
-﻿@*<!DOCTYPE html>
-<html>
+﻿<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Rehber.WebApps.App</title>
+    <title>Sakarya Rehber</title>
+    <!-- Meta tag Keywords -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Simple Statistics Responsive Widget,Login form widgets, Sign up Web forms , Login signup Responsive web form,Flat Pricing table,Flat Drop downs,Registration Forms,News letter Forms,Elements" />
+    <!-- Meta tag Keywords -->
+    <!-- css files -->
 
-    <environment include="Development">
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-    </environment>
-    <environment exclude="Development">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css"
-              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
-              crossorigin="anonymous"
-              integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE="/>
-    </environment>
-    <link rel="stylesheet" href="~/css/site.css" />
+
+
+    <link href="~/css/style.css" rel="stylesheet" type="text/css" media="all">
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- online-fonts -->
+    <link href="//fonts.googleapis.com/css?family=Voltaire" rel="stylesheet">
+    <!--//online-fonts -->
+    <!--Tree View Style-->
+
+    <link href="~/css/jqx.base.css" bh type="text/css" rel="stylesheet" />
+    <link href="~/css/demos.css" type="text/css" rel="stylesheet" />
+    <link href="~/css/jqx.apireference.css" type="text/css" rel="stylesheet" />
+    <link href="~/css/jqxmenustyle.css" type="text/css" rel="stylesheet" />
+
+    @*<link href="~/css/webSiteStylecss.css" rel="stylesheet" type="text/css" />*@
+    <!--Tree View Style-->
+    <!--Custom Style-->
+    <link href="~/css/myStyle.css" rel="stylesheet" type="text/css" />
+
+    <script src="~/js/jquery-1.10.2.min.js" type="text/javascript"></script>
+
+    <script src="~/jqwidgets/jqxcore.js" type="text/javascript"></script>
+    <script src="~/jqwidgets/jqxcore.elements.js" type="text/javascript"></script>
+    <script src="~/jqwidgets/jqxtree.js" type="text/javascript"></script>
+    <script src="~/jqwidgets/jqxdata.js" type="text/javascript"></script>
+    <script src="~/js/plugins.js" type="text/javascript"></script>
+
+
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Rehber.WebApps.App</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+
+    <div class="panel panel-inverse" style="margin-top: 20px; ">
+
+        <div class="panel-body" style="background-color:#DFE9F0; margin: 0; padding: 0;">
+            <div class="row">
+                <div class="col-md-6 form-horizontal" style="border-right: 1px solid silver;">
+                    <div class="col-md-12 text-center">
+                        <h4>
+                            <b>Arama Kriteri</b>
+                        </h4>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-6 col-md-offset-3 col-sm-offset-3 text-center">
+                            <input id="txtArama" type="text" class="form-control" placeholder="">
+                        </div>
+                        <div class="col-sm-3">
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-md-6 form-horizontal">
+                    <div class="col-md-12 text-center">
+                        <h4>
+                            <b>Birime Göre Arama</b>
+                        </h4>
+                        <div id="contentHierarchicalUnit">
+
+                            <div id="jqxTree">
+
+                            </div>
+                        </div>
+
+                    </div>
+
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <partial name="_CookieConsentPartial" />
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+
+          @RenderBody();
+
+        </div>
+        <div class="panel-footer" style="background-color: #dfe9f0; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
+            <ul>
+                <li>
+                    IP telefon sisteminde yer alan 4 haneli dahili numaralar DID (direkt arama) özelliğine sahip olup, kurum dışından 0.264.295XXXX şeklinde ulaşılabilir.
+                </li>
+                <li>Bu ekranda görünen tüm veriler Teknik ve İdari Hizmetler Şube Müdürlüğü tarafından sağlanmaktadır.</li>
+                <li>Görünen bilgilerde bir hata olduğunu düşünüyorsanız lütfen 5124 nolu telefon ile bağlantı kurunuz.</li>
+            </ul>
+        </div>
     </div>
 
- 
 
-    <environment include="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
-    </environment>
-    <environment exclude="Development">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery"
-                crossorigin="anonymous"
-                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=">
-        </script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"
-                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                crossorigin="anonymous"
-                integrity="sha256-E/V4cWE4qvAeO5MOhjtGtqDzPndRO1LBk8lJ/PR7CA4=">
-        </script>
-    </environment>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-
-    @RenderSection("Scripts", required: false)
 </body>
-</html>*@
+</html>

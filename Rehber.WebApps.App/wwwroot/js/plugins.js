@@ -1,5 +1,46 @@
 ﻿
 $(function () {
+
+    $("#txtArama").on('keyup', function () {
+        
+        var inputValue = $(this).val();
+        if (inputValue.length >= 3) {
+            $("#tableContent").empty();
+            var selectedItem = $('#jqxTree').jqxTree('getSelectedItem');
+            var requestForm =
+            {
+                employeeName: inputValue,
+                unitId: selectedItem.id
+            };
+
+            console.log(requestForm);
+            $.ajax({
+                type: "POST",
+                url: "/Home/GetEmployee",
+                data: JSON.stringify(requestForm),
+                contentType: "application/json; charset=utf-8",
+                success: function (list) {
+                    console.log(list);
+                    var SetData = $("#tableContent");
+                    for (var i = 0; i < list.length; i++) {
+                        var Data = "<tr class='row_" + list[i].employeeId + "'>" +
+                            "<td>" + list[i].telephoneNumber +"</td>" +
+                            "<td>" + list[i].firstName + " " + list[i].lastName+"</td>" +
+                            "<td>" + list[i].extraInfo + "</td>" +
+                            "<td>" + list[i].email + "</td>" +
+                            "<td>" + list[i].unitId + "</td>" +
+                            "</tr>";
+                        SetData.append(Data);
+
+                    }
+
+                }
+            });
+            
+           
+           
+        }
+    });
     getHire();
     function getHire() {
 
@@ -18,7 +59,6 @@ $(function () {
 
 
         };
-
 
         // create data adapter.
 
