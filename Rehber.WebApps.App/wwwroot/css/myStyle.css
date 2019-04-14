@@ -1,0 +1,62 @@
+﻿.formStyle
+{
+    margin-top:200px;
+    margin-left:50px;
+}
+label
+{
+    color:white;
+  
+}
+.form-control
+{
+    width:100%;
+}
+#kisiListesi_wrapper {
+    -ms-overflow-style: none;
+    overflow: -moz-scrollbars-none;
+}
+
+    #kisiListesi_wrapper::-webkit-scrollbar {
+        display: none;
+    }
+
+.table tbody > tr > td.vert-align {
+    vertical-align: middle;
+}
+
+table.table {
+    border: none;
+}
+
+#kisiListesi_wrapper {
+    overflow-x: scroll;
+}
+.panel {
+    margin-left: 50px;
+    margin-right: 50px;
+    border-radius:10px;
+}
+h4{
+    margin-bottom:20px;
+    margin-top:10px;
+}
+
+#jqxTree {
+    width: 100%;
+    height: 300px;
+    overflow-y: scroll;
+}
+.jqx-fill-state-pressed {
+    border-color: #DFE9F0;
+    background: #DFE9F0;
+    padding-left: 5px;
+    transition: all linear 0.4s;
+ 
+    
+    
+}
+.jqx-item {
+    font-size: 18px;
+    font-family: 'Voltaire', sans-serif;
+}

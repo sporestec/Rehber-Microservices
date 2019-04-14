@@ -12,7 +12,7 @@ namespace Rehber.WebApps.Admin.Core
 {
     public class UnitCrudWithApi
     {
-        static string Url = "https://localhost:44349/api/Units/";
+        static string Url = "http://localhost:44867/api/Units/";
         public IEnumerable<UnitViewModel> GetAllUnits()
         {
             using (WebClient httpClient = new WebClient())
