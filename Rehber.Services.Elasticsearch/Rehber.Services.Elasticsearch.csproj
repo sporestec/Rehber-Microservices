@@ -13,10 +13,11 @@
     <PackageReference Include="MassTransit.RabbitMQ" Version="5.3.2" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="NEST" Version="6.6.0" />
+    <PackageReference Include="NEST.JsonNetSerializer" Version="6.6.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Rehber.Model\Rehber.Model.csproj" />
+    <ProjectReference Include="..\Rehber.Data\Rehber.Data.csproj" />
   </ItemGroup>
 
 </Project>
