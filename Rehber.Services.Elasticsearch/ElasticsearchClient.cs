@@ -3,6 +3,7 @@ using Nest;
 using Nest.JsonNetSerializer;
 using Newtonsoft.Json;
 using Rehber.Model.DataModels;
+using Rehber.Model.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,10 +28,10 @@ namespace Rehber.Services.Elasticsearch
             _client = new ElasticClient(settings);
         }
 
-        public void IndexEmployee(Employees employee)
+        public void IndexEmployee(EmployeeViewModel employee)
         {
-            var res = _client.Index<Employees>(employee, idx => idx
-            .Index("employees")
+            var res = _client.Index<EmployeeViewModel>(employee, idx => idx
+            .Index("employeeviewmodel")
             .Id(employee.EmployeeId)
             );
         }
@@ -71,7 +72,7 @@ namespace Rehber.Services.Elasticsearch
             );
             return response.Documents.FirstOrDefault();
         }
-        public List<Employees> GetEmployeesByNameAndUnitId(string name, int unitId)
+        public List<EmployeeViewModel> GetEmployeesByNameAndUnitId(string name, int unitId)
         {
             List<string> unitIds = new List<string>();
             var unit = GetUnitById(unitId);
@@ -89,8 +90,8 @@ namespace Rehber.Services.Elasticsearch
                 }
             }
 
-            var response = _client.Search<Employees>(s => s
-    .Index("employees")
+            var response = _client.Search<EmployeeViewModel>(s => s
+    .Index("employeeviewmodel")
     .Query(q => q
     .Bool(b => b
     .Must(m => m
@@ -108,7 +109,7 @@ namespace Rehber.Services.Elasticsearch
         }
 
 
-        public List<Employees> GetEmployeesByUnitId(int unitId)
+        public List<EmployeeViewModel> GetEmployeesByUnitId(int unitId)
         {
             List<string> unitIds = new List<string>();
             var unit = GetUnitById(unitId);
@@ -146,8 +147,8 @@ namespace Rehber.Services.Elasticsearch
             //    } // || new MatchQuery { Field = "firstName", Query = "Taffr" }
             //};
 
-            var response = _client.Search<Employees>(s => s
-                .Index("employees")
+            var response = _client.Search<EmployeeViewModel>(s => s
+                .Index("employeeviewmodel")
                 .Query(q => q
                 .Bool(b => b
                 .Must(m => m

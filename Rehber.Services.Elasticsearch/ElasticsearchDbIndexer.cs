@@ -27,7 +27,7 @@ namespace Rehber.Services.Elasticsearch
             {
                 var unit = units.Where(r => r.UnitId == employee.UnitId).FirstOrDefault();
                 var view = employee.ToViewModel(unit?.UnitName);
-                _elasticsearchClient.IndexEmployee(employee);
+                _elasticsearchClient.IndexEmployee(view);
             }
             foreach (var unit in units)
             {
@@ -42,7 +42,7 @@ namespace Rehber.Services.Elasticsearch
             var employees = context.Employees.ToList();
             foreach (var employee in employees)
             {
-                _elasticsearchClient.IndexEmployee(employee);
+                _elasticsearchClient.IndexEmployee(employee.ToViewModel(null));
             }
         }
 

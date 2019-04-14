@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Nest;
 using Rehber.Model.DataModels;
+using Rehber.Model.ViewModels;
 
 namespace Rehber.Services.Elasticsearch.Controllers
 {
@@ -22,7 +23,7 @@ namespace Rehber.Services.Elasticsearch.Controllers
 
         // PUT
         [HttpPut]
-        public void Put([FromBody] Employees employee)
+        public void Put([FromBody] EmployeeViewModel employee)
         {
             if (employee.EmployeeId > 0)
             {
