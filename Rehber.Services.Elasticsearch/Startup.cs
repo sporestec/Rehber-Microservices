@@ -40,8 +40,8 @@ namespace Rehber.Services.Elasticsearch
             _bus.StartAsync();
 
             ElasticsearchDbIndexer eIndexer = new ElasticsearchDbIndexer();
-            eIndexer.IndexAllEmployees();
-            eIndexer.IndexAllUnits();
+            eIndexer.IndexAllEmployeesAndUnits();
+            //eIndexer.IndexAllUnits();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

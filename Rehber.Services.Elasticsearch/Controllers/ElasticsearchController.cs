@@ -19,8 +19,8 @@ namespace Rehber.Services.Elasticsearch.Controllers
             if (command == "REINDEX")
             {
                 ElasticsearchDbIndexer esdi = new ElasticsearchDbIndexer();
-                esdi.IndexAllEmployees();
-                esdi.IndexAllUnits();
+                esdi.IndexAllEmployeesAndUnits();
+                //esdi.IndexAllUnits();
             }
             return Ok();
         }

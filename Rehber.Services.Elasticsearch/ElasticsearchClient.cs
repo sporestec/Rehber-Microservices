@@ -51,11 +51,6 @@ namespace Rehber.Services.Elasticsearch
                 From = 0,
                 Size = 10,
                 Query = new TermQuery { Field = "employeeId", Value = employeeId }
-
-                /*
-                         ||
-                        new MatchQuery { Field = "Name", Query = "NAME" }
-                */
             };
             var response = _client.Search<Employees>(request);
             return response.Documents.FirstOrDefault();
