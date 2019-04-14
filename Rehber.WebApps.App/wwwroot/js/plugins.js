@@ -1,8 +1,7 @@
-﻿
-$(function () {
+﻿$(function () {
+
 
     $("#txtArama").on('keyup', function () {
-        
         var inputValue = $(this).val();
         if (inputValue.length >= 3) {
             $("#tableContent").empty();
@@ -13,7 +12,7 @@ $(function () {
                 unitId: selectedItem.id
             };
 
-            console.log(requestForm);
+           // console.log(requestForm);
             $.ajax({
                 type: "POST",
                 url: "/Home/GetEmployee",
@@ -23,24 +22,29 @@ $(function () {
                     console.log(list);
                     var SetData = $("#tableContent");
                     for (var i = 0; i < list.length; i++) {
-                        var Data = "<tr class='row_" + list[i].employeeId + "'>" +
-                            "<td>" + list[i].telephoneNumber +"</td>" +
-                            "<td>" + list[i].firstName + " " + list[i].lastName+"</td>" +
+                        var Data = "<tr onclick='getEmpolyeeData("+list[i].employeeId+")' class='row_" + list[i].employeeId + "'>" +
+                            "<td>" + list[i].telephoneNumber + "</td>" +
+                            "<td>" + list[i].firstName + " " + list[i].lastName + "</td>" +
                             "<td>" + list[i].extraInfo + "</td>" +
                             "<td>" + list[i].email + "</td>" +
                             "<td>" + list[i].unitId + "</td>" +
                             "</tr>";
                         SetData.append(Data);
-
                     }
 
                 }
             });
-            
-           
-           
+
+
+            getEmpolyeeData = function (employeeId) {
+                $('#exampleModalCenter').modal('show');
+            };
+
         }
     });
+    
+ 
+ 
     getHire();
     function getHire() {
 
@@ -79,11 +83,4 @@ $(function () {
 
 
     }
-
-
-
-
-
-
-    
-})
+});

@@ -63,3 +63,11 @@ body, html
 {
     overflow:auto;
 }
+.modal{
+    margin-top:50px;
+}
+.fade
+{
+    opacity:1;
+    background-color:transparent;
+}
