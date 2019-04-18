@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.JsonPatch.Adapters;
 using Rehber.Model.ViewModels;
 using Rehber.Model.MessageContracts;
 using MassTransit;
-using System.Net;
+using System.Net; 
 using System.Threading;
 using Rehber.Model.DataModels;
 using Rehber.Data.DbContexts;
