@@ -2,14 +2,13 @@
     getHire();
 
     /* start=> Add Unit*/
-
-
     $('#btn-addUnit').click(function () {
         $('#form').trigger('reset');
         $('#addUnitModel').modal();
     });
+
     // checkUnit checkBox
-    $('#checkUnit').on('change', function () { 
+    $('#checkUnit').on('change', function () {
         if (this.checked) {
             $("#jqxWidget2").jqxTree('selectItem', null);
             $('.form-check-label').css({ "color": "black", "font-weight": "bold" });
@@ -18,7 +17,7 @@
         else {
             $('.form-check-label').css({ "color": "black", "font-weight": "normal" });
         }
-        
+
     });
 
     // check Treeview item  for adding model
@@ -37,10 +36,8 @@
         if (inputUnitName.val() == '') {
             swal('Birim Adı giriniz');
         }
-
         else if ($('#checkUnit').prop('checked') == false && $('#selectedParentUnit').val() == '') swal('hangi alan altında veya bağımsız birim secğiniz seciniz ');
         else {
-
             $.ajax({
                 type: "POST",
                 url: "/Unit/AddUnit?unitName=" + inputUnitName.val() + "&parentUnit=" + $('#selectedParentUnit').val(),
@@ -48,22 +45,14 @@
                     swal("Success!..");
                     $("#addUnitModel").modal("hide");
                     getHire();
-                   
-                   
-              
                 }
             });
-
         }
-
-
-
-
     });
- 
-     /* end=> Add Unit*/
 
-       /*start=>Delete Unit*/
+    /* end=> Add Unit*/
+
+    /*start=>Delete Unit*/
     $('#btnDeleteUnit').click(function () {
 
         var item = $('#jqxWidget').jqxTree('getSelectedItem');
@@ -73,7 +62,6 @@
         else {
             $('#confirmDeleteUnitName').text(item.label).css('color', 'red');
             $('#deleteModel').modal();
-          
         }
     });
 
@@ -87,14 +75,12 @@
                 swal('birim Silindi !');
                 $("#deleteModel").modal("hide");
                 $("#jqxWidget").jqxTree('selectItem', null);
-              
+
             }
         });
     });
 
     /*end=>Delete Unit*/
-
-
 
 
     /*Start=> EditUnit*/
@@ -130,19 +116,18 @@
                 url: "/Unit/GetUnitById?unitId=" + selectedItem.id,
                 success: function (data) {
                     $('#edtInputUnitName').val(data.unitName);
-                    if (data.parentId == null)
-                    {
+                    if (data.parentId == null) {
                         $("#edtCheckUnit").prop("checked", true);
                         $('#edtSelectedParentUnit').attr('parentId', "");
                     }
 
                     else {
-                      
+
                         $('#edtSelectedParentUnit').val(data.parentName);
                         $('#edtSelectedParentUnit').attr('parentId', data.parentId);
                         $("#edtCheckUnit").prop("checked", false);
                     }
-                 
+
                 }
             });
             $('#edtUnitModel').modal();
@@ -161,7 +146,7 @@
         };
         console.log(parent);
         if (parent != null) unitViewModel.parentId = parent.id;
-    
+
         console.log(JSON.stringify(unitViewModel));
         $.ajax({
             type: "Post",
@@ -173,19 +158,8 @@
                 getHire();
                 //console.log(unit);
                 $("#edtUnitModel").modal("hide");
-
             }
-
-
         });
-
-
-
-
-
-
-
-    
     });
 
 
@@ -193,8 +167,8 @@
 
     /*End=> EditUnit*/
 
-   
-   // Unslect tree item and collapseAll
+
+    // Unslect tree item and collapseAll
     $('#resetTree').click(function () {
         var item = $('#jqxWidget').jqxTree('getItem', args.element);
         $("#jqxWidget").jqxTree('selectItem', null);
@@ -203,11 +177,11 @@
 
     });
 
- //  show note when hover
+    //  show note when hover
     $('#resetTree').hover(function () {
-        $('#noteText').css('display','block');
+        $('#noteText').css('display', 'block');
     }, function () {
-        $('#noteText').css('display','none');
+        $('#noteText').css('display', 'none');
     });
 
     function getHire() {
@@ -224,10 +198,7 @@
             id: 'unitId',
             url: '/Unit/GetAllUnit',
             async: false
-            
-
         };
-
 
         // create data adapter.
 
@@ -247,8 +218,6 @@
         //$.each(items, function (index, item) {
         //    $(item.element).attr('nodeKey', item.value);
         //});
-
-
     }
 
 });
