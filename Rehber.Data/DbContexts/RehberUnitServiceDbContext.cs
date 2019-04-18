@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Rehber.Model.DataModels;
 
-namespace Rehber.Data.Contexts
+namespace Rehber.Data.DbContexts
 {
     public partial class RehberUnitServiceDbContext : DbContext
     {

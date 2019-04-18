@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Rehber.Data.Contexts;
+using Rehber.Data.DbContexts;
 using Rehber.Model.DataModels;
 
 namespace Rehber.Services.ImagesApi

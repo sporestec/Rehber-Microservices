@@ -10,7 +10,7 @@ using MassTransit;
 using System.Net;
 using System.Threading;
 using Rehber.Model.DataModels;
-using Rehber.Data.Contexts;
+using Rehber.Data.DbContexts;
 using System.Net.Http;
 using System.Runtime;
 using Microsoft.Extensions.Configuration;

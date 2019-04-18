@@ -1,4 +1,4 @@
-﻿using Rehber.Data.Contexts;
+﻿using Rehber.Data.DbContexts;
 using Rehber.Model.ViewModels;
 using System;
 using System.Collections.Generic;

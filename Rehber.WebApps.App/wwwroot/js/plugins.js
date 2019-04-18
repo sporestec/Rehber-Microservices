@@ -27,7 +27,7 @@
                             "<td>" + list[i].firstName + " " + list[i].lastName + "</td>" +
                             "<td>" + list[i].extraInfo + "</td>" +
                             "<td>" + list[i].email + "</td>" +
-                            "<td>" + list[i].unitId + "</td>" +
+                            "<td>" + list[i].unitName + "</td>" +
                             "</tr>";
                         SetData.append(Data);
                     }

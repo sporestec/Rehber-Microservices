@@ -14,7 +14,7 @@ namespace Rehber.WebApps.App.Controllers
     public class HomeController : Controller
     {
         UnitCrudWithApi unitCrudWithApi = new UnitCrudWithApi();
-        static string Url = "http://localhost:41024/api/Employees/";
+        static string Url = "http://localhost:52825/api/Employees/";
         public IActionResult Index()
         {
             return View();
@@ -28,10 +28,19 @@ namespace Rehber.WebApps.App.Controllers
         [HttpPost]
         public JsonResult GetEmployee([FromBody]SearchViewModel searchViewModel)
         {
-            WebClient httpClient = new WebClient();
-            var jsonData = httpClient.DownloadString(Url + searchViewModel.employeeName + "/unit/" + searchViewModel.unitId);
-            var data = JsonConvert.DeserializeObject<IEnumerable<EmployeeViewModel>>(jsonData);
-            return Json(data);
+            try
+            {
+                WebClient httpClient = new WebClient();
+                var jsonData = httpClient.DownloadString(Url + searchViewModel.employeeName + "/unit/" + searchViewModel.unitId);
+                var data = JsonConvert.DeserializeObject<IEnumerable<EmployeeViewModel>>(jsonData);
+                return Json(data);
+            }
+            catch (Exception)
+            {
+                return Json("");
+                throw;
+            }
+
 
         }
     }

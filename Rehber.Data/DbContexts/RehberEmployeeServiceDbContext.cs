@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Rehber.Model.DataModels;
 
-namespace Rehber.Data.Contexts
+namespace Rehber.Data.DbContexts
 {
     public partial class RehberEmployeeServiceDbContext : DbContext
     {
@@ -32,8 +32,6 @@ namespace Rehber.Data.Contexts
             modelBuilder.Entity<Employees>(entity =>
             {
                 entity.HasKey(e => e.EmployeeId);
-
-                entity.Property(e => e.EmployeeId).ValueGeneratedNever();
 
                 entity.Property(e => e.Email).HasMaxLength(250);
 
