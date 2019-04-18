@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace Rehber.WebApps.Admin
+namespace Rehber.Admin
 {
     public class Program
     {

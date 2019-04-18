@@ -14,7 +14,7 @@
 
 
   <ItemGroup>
-    <ProjectReference Include="..\Rehber.Admin\Rehber.WebApps.Admin.csproj" />
+    <ProjectReference Include="..\Rehber.Core\Rehber.Core.csproj" />
     <ProjectReference Include="..\Rehber.Data\Rehber.Data.csproj" />
   </ItemGroup>
 

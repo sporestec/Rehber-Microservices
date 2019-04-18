@@ -3,28 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Rehber.Core.Helpers;
 using Rehber.Model.DataModels;
 using Rehber.Model.ViewModels;
-using Rehber.WebApps.Admin.Core;
 
-namespace Rehber.WebApps.Admin.Controllers
+namespace Rehber.Admin.Controllers
 {
+
     public class UnitController : Controller
     {
-        UnitCrudWithApi unitCrudWhitApi = new UnitCrudWithApi();
+        UnitsApiHelper unitsApiHelper = new UnitsApiHelper();
+
         public IActionResult UnitMainPage()
         {
             return View();
         }
+
         public IActionResult GetAllUnit()
         {
-            var unitList = unitCrudWhitApi.GetAllUnits();
+            var unitList = unitsApiHelper.GetAllUnits();
             return Json(unitList);
         }
-        public JsonResult DeleteUnit(int unitId)
 
+        public JsonResult DeleteUnit(int unitId)
         {
-            string message = unitCrudWhitApi.DeleteUnit(unitId);
+            string message = unitsApiHelper.DeleteUnit(unitId);
             return Json("");
         }
 
@@ -32,7 +35,7 @@ namespace Rehber.WebApps.Admin.Controllers
         {
             if (unitName != "")
             {
-                var responeUnit = unitCrudWhitApi.AddUnit(unitName, parentUnit);
+                var responeUnit = unitsApiHelper.AddUnit(unitName, parentUnit);
                 Units unit = new Units();
                 unit.UnitName = responeUnit.Result.UnitName;
                 unit.ParentId = responeUnit.Result.ParentId;
@@ -41,18 +44,17 @@ namespace Rehber.WebApps.Admin.Controllers
             }
             return Json("");
         }
+
         public JsonResult GetUnitById(int unitId)
         {
-
-            var unit = unitCrudWhitApi.GetUnitById(unitId);
+            var unit = unitsApiHelper.GetById(unitId);
             return Json(unit);
-
         }
 
         [HttpPost]
         public JsonResult SaveEditing([FromBody]UnitViewModel unitViewModel)
         {
-            var unit = unitCrudWhitApi.EditUnit(unitViewModel);
+            var unit = unitsApiHelper.EditUnit(unitViewModel);
             return Json(unit);
         }
 

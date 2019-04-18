@@ -24,6 +24,7 @@
 
 
   <ItemGroup>
+    <ProjectReference Include="..\Rehber.Core\Rehber.Core.csproj" />
     <ProjectReference Include="..\Rehber.Data\Rehber.Data.csproj" />
   </ItemGroup>
 

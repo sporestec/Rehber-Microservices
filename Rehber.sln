@@ -15,13 +15,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rehber.Services.UnitsApi", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rehber.Services.ImagesApi", "Rehber.Services.Images\Rehber.Services.ImagesApi.csproj", "{B19A7E58-47DB-4FB9-B1A7-A4ED6505185D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rehber.WebApps.Admin", "Rehber.Admin\Rehber.WebApps.Admin.csproj", "{8BA8B54D-1BB7-4439-817A-E1E730D6F0C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rehber.Admin", "Rehber.Admin\Rehber.Admin.csproj", "{8BA8B54D-1BB7-4439-817A-E1E730D6F0C4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rehber.Services.EmployeesApi", "Rehber.Services.Employees\Rehber.Services.EmployeesApi.csproj", "{DB483C7C-86B9-4931-8FBE-F8C163A994CE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rehber.WebApps.App", "Rehber.WebApps.App\Rehber.WebApps.App.csproj", "{76589606-2ECC-4EA5-B447-CCDCFE327A85}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rehber.Core", "Rehber.Core\Rehber.Core.csproj", "{5032EE47-6EEA-448D-86A9-53EEE7634E7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rehber.Core", "Rehber.Core\Rehber.Core.csproj", "{5032EE47-6EEA-448D-86A9-53EEE7634E7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rehber.App", "Rehber.App\Rehber.App.csproj", "{290716B1-AAA7-497B-B2ED-4B5A6F1D8354}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,14 +57,14 @@ Global
 		{DB483C7C-86B9-4931-8FBE-F8C163A994CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB483C7C-86B9-4931-8FBE-F8C163A994CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB483C7C-86B9-4931-8FBE-F8C163A994CE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{76589606-2ECC-4EA5-B447-CCDCFE327A85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{76589606-2ECC-4EA5-B447-CCDCFE327A85}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{76589606-2ECC-4EA5-B447-CCDCFE327A85}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{76589606-2ECC-4EA5-B447-CCDCFE327A85}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5032EE47-6EEA-448D-86A9-53EEE7634E7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5032EE47-6EEA-448D-86A9-53EEE7634E7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5032EE47-6EEA-448D-86A9-53EEE7634E7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5032EE47-6EEA-448D-86A9-53EEE7634E7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{290716B1-AAA7-497B-B2ED-4B5A6F1D8354}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{290716B1-AAA7-497B-B2ED-4B5A6F1D8354}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{290716B1-AAA7-497B-B2ED-4B5A6F1D8354}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{290716B1-AAA7-497B-B2ED-4B5A6F1D8354}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

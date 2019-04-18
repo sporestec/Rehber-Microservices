@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Rehber.WebApps.Admin.Controllers
+namespace Rehber.Admin.Controllers
 {
     public class EmployeeController : Controller
     {

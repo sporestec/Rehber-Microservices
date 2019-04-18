@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Rehber.WebApps.Admin
+namespace Rehber.Admin
 {
     public class Startup
     {

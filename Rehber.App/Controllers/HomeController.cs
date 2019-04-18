@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Rehber.WebApps.Admin.Core;
 using Rehber.Model;
 using Rehber.Model.ViewModels;
 using System.Net;
 using Newtonsoft.Json;
+using Rehber.Core.Helpers;
 
-namespace Rehber.WebApps.App.Controllers
+namespace Rehber.App.Controllers
 {
     public class HomeController : Controller
     {
-        UnitCrudWithApi unitCrudWithApi = new UnitCrudWithApi();
+        UnitsApiHelper unitCrudWithApi = new UnitsApiHelper();
         static string Url = "http://localhost:52825/api/Employees/";
         public IActionResult Index()
         {
