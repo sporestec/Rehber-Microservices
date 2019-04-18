@@ -53,6 +53,7 @@
         else if ($('#inputEmployeeLastName').val() === '')
             swal('Soyad Bilgisi Zorunludur.');
         else {
+
             var employee = {
                 firstName: $('#inputEmployeeFirstName').val(),
                 lastName: $('#inputEmployeeLastName').val(),
@@ -72,6 +73,9 @@
                     swal("Başarıyla Eklendi..");
                     $("#addEmployeeModel").modal("hide");
                     getHire();
+                },
+                error: function () {
+                    swal("Hata Oluştu Lütfen Tekrar Deneyiniz.")
                 }
             });
         }

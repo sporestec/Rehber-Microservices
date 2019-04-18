@@ -43,6 +43,18 @@ namespace Rehber.Services.Elasticsearch.Controllers
             return NotFound();
         }
 
+        // GET ALL
+        [HttpGet]
+        public ActionResult<IEnumerable<string>> GetAll()
+        {
+            var employees = _elasticClient.GetEmployees(100,1);
+            if (employees != null)
+            {
+                return Ok(employees);
+            }
+            return NotFound();
+        }
+
         // GET
         [HttpGet, Route("unit/{unitId}")]
         public ActionResult<IEnumerable<string>> GetByUnitId(int unitId)

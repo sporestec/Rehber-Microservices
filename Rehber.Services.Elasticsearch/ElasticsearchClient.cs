@@ -43,6 +43,16 @@ namespace Rehber.Services.Elasticsearch
             .Id(unit.UnitId)
             );
         }
+        
+        public int GetEmployees(int pagesize, int pagenumber)
+        {
+            var res = _client.Search<EmployeeViewModel>(idx => idx
+            .Index("employeeviewmodel")
+            .Size(pagesize)
+            );
+            var empls = res.Documents.ToList();
+            return 0;
+        }
 
         public Employees GetEmployeeById(int employeeId)
         {

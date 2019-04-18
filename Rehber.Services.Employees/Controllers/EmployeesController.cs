@@ -22,12 +22,11 @@ namespace Rehber.Services.EmployeesApi.Controllers
     [ApiController]
     public class EmployeesController : ControllerBase
     {
-
         private readonly IBus _bus;
         private readonly RehberEmployeeServiceDbContext _db = null;
         private readonly IRequestClient<IEmployeeAdded, IEmployeeAdded> _requestClient;
         private readonly IConfiguration _configuration;
-
+        private readonly UnitsApiHelper _unitApiHelper;
 
         public EmployeesController(IRequestClient<IEmployeeAdded, IEmployeeAdded> requestClient, IBus bus, IConfiguration configuration)
         {
@@ -35,18 +34,18 @@ namespace Rehber.Services.EmployeesApi.Controllers
             _db = new RehberEmployeeServiceDbContext();
             _configuration = configuration;
             _requestClient = requestClient;
+            _unitApiHelper = new UnitsApiHelper();
         }
-        // GET api/values
+
         [HttpGet("{employeeId}")]
         public ActionResult<IEnumerable<string>> Get(int employeeId)
         {
             try
             {
-                var apiHelper = new UnitsApiHelper();
                 var employee = _db.Employees.Where(x => x.EmployeeId == employeeId).FirstOrDefault();
                 if (employee != null)
                 {
-                    var unit = apiHelper.GetById(employeeId);
+                    var unit = _unitApiHelper.GetById(employeeId);
                     if (unit != null)
                     {
                         return Ok(employee.ToViewModel(unit.UnitName));
@@ -65,15 +64,20 @@ namespace Rehber.Services.EmployeesApi.Controllers
 
         }
 
-        // POST api/values
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Employees employee)
         {
+            var unit = _unitApiHelper.GetById(employee.UnitId);
             if (employee != null)
             {
                 _db.Employees.Add(employee);
                 _db.SaveChanges();
-                await _bus.Publish<IEmployeeAdded>(new { Employee = employee });
+
+                await _bus.Publish<IEmployeeAdded>(new
+                {
+                    Employee = employee.ToViewModel(unit.UnitName)
+                });
+
                 return Ok(employee);
             }
             return BadRequest();
@@ -92,7 +96,6 @@ namespace Rehber.Services.EmployeesApi.Controllers
             return BadRequest();
         }
 
-        // DELETE api/123
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(int employeeId)
         {
