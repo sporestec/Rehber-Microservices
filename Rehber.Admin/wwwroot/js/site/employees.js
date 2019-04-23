@@ -1,11 +1,16 @@
-﻿$(function () {
-    getHire();
+﻿var pageNumber = 1;
+var bulundu = false;
 
+$(function () {
+    GetEmployees(pageNumber);
+    getHire();
     //EMPLOYEE FUNCTIONS
     $('#btn-addEmployee').click(function () {
         $('#newEmployeeForm').trigger('reset');
         $('#addEmployeeModel').modal();
     });
+
+
 
     function getHire() {
         var source =
@@ -16,7 +21,6 @@
                 { name: 'parentId' },
                 { name: 'unitName' }
             ],
-
             id: 'unitId',
             url: '/Unit/GetAllUnit',
             async: false
@@ -81,5 +85,82 @@
         }
     });
 
+    $("#lastPage").click(function () {
+        if (pageNumber > 1) {
+            pageNumber = pageNumber - 1;
+        }
+        GetEmployees(pageNumber);
+    });
+
+    $("#nextPage").click(function () {
+        if (bulundu) {
+            pageNumber = pageNumber + 1;
+        }
+        GetEmployees(pageNumber);
+    });
+
+
     //END OF EMPLOYEE FUNCTIONS
 });
+
+//Functions
+function deleteEmployee(id) {
+    $.ajax({
+        type: "DELETE",
+        url: "/Employee/DeleteEmployee?id=" + id,
+        success: function (result) {
+            swal("Başarıyla Silindi..");
+            var eTable = $("#employeesTable");
+            eTable.find("tr:gt(0)").empty();
+            $('#noResult').text("Yükleniyor.....");
+            $('#noResult').show();
+            setTimeout(() => {
+                GetEmployees(pageNumber);
+            }, 2500);
+
+        },
+        error: function () {
+            swal("Hata Oluştu Lütfen Tekrar Deneyiniz.");
+        }
+    });
+}
+
+function GetEmployees(pageNumber) {
+    var eTable = $("#employeesTable");
+    eTable.find("tr:gt(0)").empty();
+    $('#noResult').text("Yükleniyor.....");
+    $('#noResult').show();
+    $.ajax({
+        type: "GET",
+        url: "/Employee/GetWithFilter?pagesize=" + 100 + "&pagenumber=" + pageNumber,
+        success: function (list) {
+            $('#noResult').hide();
+            if (list.length === 0) {
+                $('#noResult').text("Kayıt Bulunmadı.....");
+                $('#noResult').show();
+                bulundu = false;
+            }
+            else {
+                bulundu = true;
+            }
+            for (var i = 0; i < list.length; i++) {
+                var row = "<tr class='row_" + list[i].employeeId + "'>" +
+                    "<td>" + list[i].firstName + "</td>" +
+                    "<td>" + list[i].lastName + "</td>" +
+                    "<td>" + list[i].unitName + "</td>" +
+                    "<td>" + list[i].telephoneNumber + "</td>" +
+                    "<td>" + list[i].email + "</td>" +
+                    "<td>" + list[i].webSite + "</td>" +
+                    "<td>" + list[i].extraInfo + "</td>" +
+                    "<td><a style='cursor:pointer'><i class='fa fa-edit'></i></a></td>" +
+                    "<td><a onclick='deleteEmployee(" + list[i].employeeId + ");' style='cursor:pointer'><i class='fa fa-trash'></i></a></td>" +
+                    "</tr>";
+                eTable.append(row);
+            }
+        },
+        error: function () {
+            $('#noResult').text("Error: GetEmployees.....");
+            $('#noResult').show();
+        }
+    });
+}

@@ -41,5 +41,11 @@ namespace Rehber.Admin.Controllers
             return Json(result);
         }
 
+        public JsonResult DeleteEmployee(int id)
+        {
+            var result = _employeesApiHelper.DeleteEmployee(id);
+            return Json(result);
+        }
+
     }
 }

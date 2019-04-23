@@ -1,6 +1,4 @@
-﻿
-
-<div class="grid-1">
+﻿<div class="grid-1">
     <div class="form-body">
         <h3 style="color:#337ab7" class="text-center h3-arama">Arama</h3>
         <button id="btn-addEmployee" class="btn btn-success">Yeni Kişi</button>
@@ -26,59 +24,24 @@
         </div>
     </div>
 </div>
+
 <div class="tables">
-    <table class="table">
-        <tr class="_thead">
-            <th>Kişi Id</th>
-            <th>Ad</th>
-            <th>Soyad</th>
-            <th>Birim</th>
-            <th>Düzelt</th>
-            <th>Sil</th>
-        </tr>
-        <tr>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td><i class="fa fa-edit"></i></td>
-            <td><i class="fas fa-trash-alt"></i></td>
-        </tr>
-        <tr>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td><i class="fa fa-edit"></i></td>
-            <td><i class="fas fa-trash-alt"></i></td>
-        </tr>
-        <tr>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td><i class="fa fa-edit"></i></td>
-            <td><i class="fas fa-trash-alt"></i></td>
-
-        </tr>
-        <tr>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td> <a style="cursor:pointer"><i class="fa fa-edit"></i></a></td>
-            <td><i class="fas fa-trash-alt"></i></td>
-
-        </tr>
-        <tr>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td><i class="fa fa-edit"></i></td>
-            <td><i class="fas fa-trash-alt"></i></td>
-        </tr>
+    <table id="employeesTable" class="table">
+        <thead>
+            <tr class="_thead">
+                <th>Ad</th>
+                <th>Soyad</th>
+                <th>Birim</th>
+                <th>Tel</th>
+                <th>E-Posta</th>
+                <th>Web Adresi</th>
+                <th>Diğer</th>
+                <th>Düzelt</th>
+                <th>Sil</th>
+            </tr>
+        </thead>
     </table>
+    <h3 style="text-align:center" id="noResult"> Yükleniyor.....</h3>
 </div>
 
 
@@ -138,13 +101,70 @@
     </div>
 </div>
 
+
+
+<div class="modal fade" id="editEmployeeModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">Yeni Kişi</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editEmployeeForm">
+                    <div class="form-group">
+                        <label>Ad *</label>
+                        <input type="text" class="form-control" id="inputEmployeeFirstName" placeholder="Ad yazınız">
+                    </div>
+                    <div class="form-group">
+                        <label>Soyad *</label>
+                        <input type="text" class="form-control" id="inputEmployeeLastName" placeholder="Soyad yazınız">
+                    </div>
+                    <div class="form-group">
+                        <label>E-Posta Adresi</label>
+                        <input type="text" class="form-control" id="inputEmployeeEmail" placeholder="E-Posta Adresi yazınız">
+                    </div>
+                    <div class="form-group">
+                        <label>Telefon Numarası</label>
+                        <input type="text" class="form-control" id="inputEmployeePhoneNumber" placeholder="Telefon Numarası yazınız">
+                    </div>
+                    <div class="form-group">
+                        <label>Web Sitesi</label>
+                        <input type="text" class="form-control" id="inputEmployeeWebsite" placeholder="Web Sitesi yazınız">
+                    </div>
+                    <div class="form-group">
+                        <label>Ekstra Bilgi</label>
+                        <input type="text" class="form-control" id="inputEmployeeExtra" placeholder="Ekstra Bilgi yazınız">
+                    </div>
+                    <div class="form-group">
+                        <label>Hangi birim altında olacak ? *</label>
+                        <input style="color:black" id="selectedParentUnit" type="text" class="form-control" readonly>
+                    </div>
+                    <div class="form-group">
+                        <div id='contentHierarchicalUnit2'>
+                            <div id='jqxWidgetAddEmployee'>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                <button id="submitAddEmployee" type="button" class="btn btn-success">Ekle</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <nav class="text-center" aria-label="Page navigation example">
     <ul class="pagination">
-        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        <li class="page-item"><a id="lastPage" class="page-link" href="javascript:;">Önceki</a></li>
+        <li class="page-item"><a id="nextPage" class="page-link" href="javascript:;">Sonraki</a></li>
     </ul>
 </nav>
 
