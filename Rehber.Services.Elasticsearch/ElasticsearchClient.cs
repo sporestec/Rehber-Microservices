@@ -3,6 +3,7 @@ using Nest;
 using Nest.JsonNetSerializer;
 using Newtonsoft.Json;
 using Rehber.Model.DataModels;
+using Rehber.Model.SearchModels;
 using Rehber.Model.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -43,15 +44,16 @@ namespace Rehber.Services.Elasticsearch
             .Id(unit.UnitId)
             );
         }
-        
-        public int GetEmployees(int pagesize, int pagenumber)
+
+        public List<EmployeeViewModel> GetEmployees(EmployeesSearch filter)
         {
             var res = _client.Search<EmployeeViewModel>(idx => idx
             .Index("employeeviewmodel")
-            .Size(pagesize)
+            .From(filter.PageSize * (filter.PageNumber - 1))
+            .Size(filter.PageSize)
             );
             var empls = res.Documents.ToList();
-            return 0;
+            return empls;
         }
 
         public Employees GetEmployeeById(int employeeId)

@@ -117,7 +117,7 @@ namespace Rehber.Services.UnitsApi
 
 
         [HttpPost]
-        public async Task<ActionResult<Units>> PostUnits([FromBody]UnitViewModel request)
+        public IActionResult PostUnits([FromBody]UnitViewModel request)
         {
             Units unit = new Units();
             var getParentIdModel = _context.Units.Where(x => x.UnitName == request.ParentName).SingleOrDefault();
@@ -125,17 +125,15 @@ namespace Rehber.Services.UnitsApi
             {
                 unit.UnitName = request.UnitName;
                 _context.Units.Add(unit);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
                 return Ok(unit);
             }
             else
             {
-
-
                 unit.UnitName = request.UnitName;
                 unit.ParentId = getParentIdModel.UnitId;
                 _context.Units.Add(unit);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
                 var unitViewModel = new UnitViewModel()
                 {
                     UnitId = unit.UnitId,

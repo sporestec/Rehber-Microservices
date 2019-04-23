@@ -12,7 +12,7 @@ namespace Rehber.Core.Helpers
 {
     public class EmployeesApiHelper
     {
-        private readonly static string URL = "http://localhost:50484/api/Employees/";
+        private readonly static string URL = "http://localhost:2000/api/Employees/";
 
 
         public async Task<Employees> AddEmployee(Employees employee)

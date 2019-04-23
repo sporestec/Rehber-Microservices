@@ -33,8 +33,6 @@ namespace Rehber.Data.DbContexts
             {
                 entity.HasKey(e => e.UnitId);
 
-                entity.Property(e => e.UnitId).ValueGeneratedNever();
-
                 entity.Property(e => e.UnitName).HasMaxLength(250);
 
                 entity.HasOne(d => d.Parent)

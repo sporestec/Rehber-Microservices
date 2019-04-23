@@ -14,7 +14,7 @@ namespace Rehber.App.Controllers
     public class HomeController : Controller
     {
         UnitsApiHelper unitCrudWithApi = new UnitsApiHelper();
-        static string Url = "http://localhost:52825/api/Employees/";
+        static string Url = "http://localhost:4000/api/Employees/";
         public IActionResult Index()
         {
             return View();

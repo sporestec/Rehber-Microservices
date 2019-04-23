@@ -12,7 +12,7 @@ namespace Rehber.Core.Helpers
 {
     public class UnitsApiHelper
     {
-        private readonly static string URL = "http://localhost:61310/api/Units/";
+        private readonly static string URL = "http://localhost:4000/api/Units/";
 
         public IEnumerable<UnitViewModel> GetAllUnits()
         {

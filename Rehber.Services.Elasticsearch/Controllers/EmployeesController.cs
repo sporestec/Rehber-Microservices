@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Nest;
 using Rehber.Model.DataModels;
+using Rehber.Model.SearchModels;
 using Rehber.Model.ViewModels;
 
 namespace Rehber.Services.Elasticsearch.Controllers
@@ -45,9 +46,15 @@ namespace Rehber.Services.Elasticsearch.Controllers
 
         // GET ALL
         [HttpGet]
-        public ActionResult<IEnumerable<string>> GetAll()
+        public ActionResult<IEnumerable<string>> GetAll([FromQuery]EmployeesSearch filter)
         {
-            var employees = _elasticClient.GetEmployees(100,1);
+            if (filter.PageSize == null || filter.PageSize <= 0)
+                filter.PageSize = 1000;
+
+            if (filter.PageNumber == null || filter.PageNumber <= 0)
+                filter.PageNumber = 1;
+
+            var employees = _elasticClient.GetEmployees(filter);
             if (employees != null)
             {
                 return Ok(employees);
