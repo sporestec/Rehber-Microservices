@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Rehber.Services.Elasticsearch.MasstransitConsumers
 {
-    public class UserAddedConsumer : IConsumer<IEmployeeAdded>
+    public class EmployeeAddedConsumer : IConsumer<IEmployeeAdded>
     {
-        public UserAddedConsumer() { }
+        public EmployeeAddedConsumer() { }
 
         public Task Consume(ConsumeContext<IEmployeeAdded> context)
         {

@@ -1,4 +1,4 @@
-﻿ using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.JsonPatch.Adapters;
 using Rehber.Model.ViewModels;
 using Rehber.Model.MessageContracts;
 using MassTransit;
-using System.Net; 
+using System.Net;
 using System.Threading;
 using Rehber.Model.DataModels;
 using Rehber.Data.DbContexts;
@@ -96,7 +96,7 @@ namespace Rehber.Services.EmployeesApi.Controllers
             return BadRequest();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{employeeId}")]
         public async Task<IActionResult> DeleteAsync(int employeeId)
         {
             try

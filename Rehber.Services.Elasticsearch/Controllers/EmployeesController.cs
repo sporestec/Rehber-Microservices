@@ -74,6 +74,20 @@ namespace Rehber.Services.Elasticsearch.Controllers
             return NotFound();
         }
 
+        // Delete
+        [HttpDelete, Route("{employeeId}")]
+        public ActionResult<IEnumerable<string>> DeleteEmployee(int employeeId)
+        {
+            var employees = _elasticClient.DeleteEmployee(employeeId);
+            if (employees)
+            {
+                return Ok(true);
+            }
+            return NotFound();
+        }
+
+
+
         // GET
         [HttpGet, Route("{name}/unit/{unitId}")]
         public ActionResult<IEnumerable<string>> GetByNameAndUnitId(string name, int unitId)

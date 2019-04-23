@@ -37,6 +37,11 @@ namespace Rehber.Services.Elasticsearch
             );
         }
 
+        public void DeleteAllIndexes()
+        {
+            _client.DeleteIndex(Indices.All);
+        }
+
         public void IndexUnit(Units unit)
         {
             var res = _client.Index(unit, idx => idx
@@ -84,6 +89,19 @@ namespace Rehber.Services.Elasticsearch
             );
             return response.Documents.FirstOrDefault();
         }
+
+        public bool DeleteEmployee(int employeeId)
+        {
+            //var res = _client.DeleteIndex(Indices.All,
+            //    f=>f.Index("employeeviewmodel")
+
+            //    );
+            var res = _client.Delete<EmployeeViewModel>(employeeId,
+                r => r.Index("employeeviewmodel")
+                );
+            return res.IsValid;
+        }
+
         public List<EmployeeViewModel> GetEmployeesByNameAndUnitId(string name, int unitId)
         {
             List<string> unitIds = new List<string>();

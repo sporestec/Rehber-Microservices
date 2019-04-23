@@ -36,6 +36,11 @@ namespace Rehber.Services.Elasticsearch
 
         }
 
+        public void DeleteAllIndexes()
+        {
+            _elasticsearchClient.DeleteAllIndexes();
+        }
+
         public void IndexAllEmployees()
         {
             RehberEmployeeServiceDbContext context = new RehberEmployeeServiceDbContext();

@@ -19,6 +19,7 @@ namespace Rehber.Admin.Controllers
         {
             _employeesApiHelper = new EmployeesApiHelper();
             _elasticsearchApiHelper = new ElasticsearchApiHelper();
+            _employeesApiHelper.DeleteEmployee(4);
         }
 
 

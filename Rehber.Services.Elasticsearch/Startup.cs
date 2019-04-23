@@ -33,13 +33,15 @@ namespace Rehber.Services.Elasticsearch
                 var host = cfg.Host(new Uri("rabbitmq://localhost/"), h => { });
 
                 cfg.ReceiveEndpoint(host, "ElasticSearch", e =>
-                { 
-                    e.Consumer(() => new UserAddedConsumer());
+                {
+                    e.Consumer(() => new EmployeeAddedConsumer());
+                    e.Consumer(() => new EmployeeDeletedConsumer());
                 });
             });
             _bus.StartAsync();
 
             ElasticsearchDbIndexer eIndexer = new ElasticsearchDbIndexer();
+            eIndexer.DeleteAllIndexes();
             eIndexer.IndexAllEmployeesAndUnits();
             //eIndexer.IndexAllUnits();
         }
