@@ -31,6 +31,26 @@ namespace Rehber.Services.Elasticsearch
 
         public void IndexEmployee(EmployeeViewModel employee)
         {
+            if (!_client.IndexExists(Indices.All, ii => ii.Index("employeeviewmodel")).Exists)
+            {
+                var result = _client.CreateIndex("employeeviewmodel", i => i
+                //Settings
+                .Settings(s => s
+                .Analysis(a => a
+                .TokenFilters(tf=>tf.PatternCapture("email",pc=>pc
+                .Patterns(new string[] {"([^@]+)", "(\\p{L}+)", "(\\d+)", "@(.+)", "([^-@]+)"})
+                .PreserveOriginal(true)))
+                //Analyzers
+                .Analyzers(an => an
+                .Custom("email", cc => cc
+                 .Tokenizer("uax_url_email")
+                 .Filters(new string[] { "email", "lowercase", "unique" })
+                ))))
+                //Mappings
+                .Mappings(m => m.Map("employeeviewmodel", mm=>mm.Properties<EmployeeViewModel>(ps=>ps.Text(
+                    te=>te.Name(P=>P.Email).Analyzer("email")
+                    )))));
+            }
             var res = _client.Index<EmployeeViewModel>(employee, idx => idx
             .Index("employeeviewmodel")
             .Id(employee.EmployeeId)
@@ -50,12 +70,27 @@ namespace Rehber.Services.Elasticsearch
             );
         }
 
-        public List<EmployeeViewModel> GetEmployees(EmployeesSearch filter)
+        public List<EmployeeViewModel> GetFilteredEmployees(EmployeesSearch filter)
         {
             var res = _client.Search<EmployeeViewModel>(idx => idx
             .Index("employeeviewmodel")
             .From(filter.PageSize * (filter.PageNumber - 1))
             .Size(filter.PageSize)
+            .Query(q =>
+                q.Wildcard(m => m.Field("email").Value($"*{filter.Email}*"))
+            &&
+            q.Wildcard(m => m.Field("firstName").Value($"*{filter.FirstName}*"))
+            &&
+            q.Wildcard(m => m.Field("lastName").Value($"*{filter.LastName}*"))
+            &&
+            q.Wildcard(m => m.Field("unitName").Value($"*{filter.UnitName}*"))
+            &&
+            q.Wildcard(m => m.Field("webSite").Value($"*{filter.WebSite}*"))
+            &&
+            q.Wildcard(m => m.Field("extraInfo").Value($"*{filter.ExtraInfo}*"))
+            &&
+            q.Wildcard(m => m.Field("telephoneNumber").Value($"*{filter.TelephoneNumber}*"))
+            )
             );
             var empls = res.Documents.ToList();
             return empls;

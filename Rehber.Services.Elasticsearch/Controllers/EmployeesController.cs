@@ -46,15 +46,19 @@ namespace Rehber.Services.Elasticsearch.Controllers
 
         // GET ALL
         [HttpGet]
-        public ActionResult<IEnumerable<string>> GetAll([FromQuery]EmployeesSearch filter)
+        public ActionResult<IEnumerable<string>> GetFiltered([FromQuery]EmployeesSearch filter)
         {
+            //if (filter.Email != null && filter.Email.Contains('@'))
+            //{
+            //    filter.Email = filter.Email.Remove(filter.Email.IndexOf("@"),1);
+            //}
             if (filter.PageSize == null || filter.PageSize <= 0)
                 filter.PageSize = 1000;
 
             if (filter.PageNumber == null || filter.PageNumber <= 0)
                 filter.PageNumber = 1;
 
-            var employees = _elasticClient.GetEmployees(filter);
+            var employees = _elasticClient.GetFilteredEmployees(filter);
             if (employees != null)
             {
                 return Ok(employees);
@@ -92,7 +96,7 @@ namespace Rehber.Services.Elasticsearch.Controllers
         [HttpGet, Route("{name}/unit/{unitId}")]
         public ActionResult<IEnumerable<string>> GetByNameAndUnitId(string name, int unitId)
         {
-           var employees = _elasticClient.GetEmployeesByNameAndUnitId(name, unitId);
+            var employees = _elasticClient.GetEmployeesByNameAndUnitId(name, unitId);
             if (employees != null && employees.Count > 0)
             {
                 return Ok(employees);

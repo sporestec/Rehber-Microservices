@@ -1,8 +1,17 @@
 ﻿var pageNumber = 1;
 var bulundu = false;
 
+//search Model
+var firstName = "";
+var lastName = "";
+var unitName = "";
+var email = "";
+var telefon = "";
+
+
+
 $(function () {
-    GetEmployees(pageNumber);
+    GetEmployees();
     getHire();
     //EMPLOYEE FUNCTIONS
     $('#btn-addEmployee').click(function () {
@@ -89,16 +98,36 @@ $(function () {
         if (pageNumber > 1) {
             pageNumber = pageNumber - 1;
         }
-        GetEmployees(pageNumber);
+        GetEmployees();
     });
 
     $("#nextPage").click(function () {
         if (bulundu) {
             pageNumber = pageNumber + 1;
         }
-        GetEmployees(pageNumber);
+        GetEmployees();
     });
 
+    $("#searchFirstName").change(function () {
+        firstName = $("#searchFirstName").val();
+        GetEmployees();
+    });
+    $("#searchLastName").change(function () {
+        lastName = $("#searchLastName").val();
+        GetEmployees();
+    });
+    $("#searchEmail").change(function () {
+        email = $("#searchEmail").val();
+        GetEmployees();
+    });
+    $("#searchTelephone").change(function () {
+        telefon = $("#searchTelephone").val();
+        GetEmployees();
+    });
+    $("#searchUnitName").change(function () {
+        unitName = $("#searchUnitName").val();
+        GetEmployees();
+    });
 
     //END OF EMPLOYEE FUNCTIONS
 });
@@ -125,14 +154,28 @@ function deleteEmployee(id) {
     });
 }
 
-function GetEmployees(pageNumber) {
+
+
+
+
+
+function GetEmployees() {
+    console.log(firstName);
+
     var eTable = $("#employeesTable");
     eTable.find("tr:gt(0)").empty();
     $('#noResult').text("Yükleniyor.....");
     $('#noResult').show();
     $.ajax({
         type: "GET",
-        url: "/Employee/GetWithFilter?pagesize=" + 100 + "&pagenumber=" + pageNumber,
+        url: "/Employee/GetWithFilter?pagesize=" + 100 + "&pagenumber=" + pageNumber
+            + "&firstName=" + firstName
+            + "&lastName=" + lastName
+            + "&email=" + email
+            + "&telephoneNumber=" + telefon
+            + "&unitName=" + unitName
+
+        ,
         success: function (list) {
             $('#noResult').hide();
             if (list.length === 0) {
