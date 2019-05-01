@@ -41,5 +41,54 @@ namespace Rehber.Core.Helpers
             }
         }
 
+        public EmployeeViewModel GetEmployeeById(int EmployeeId)
+        {
+            using (WebClient httpClient = new WebClient())
+            {
+                try
+                {
+                    var jsonData = httpClient.DownloadString(URL + EmployeeId);
+                    var data = JsonConvert.DeserializeObject<EmployeeViewModel>(jsonData);
+                    return data;
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+            }
+        }
+        public async Task<Employees> EditEmployee(EmployeeViewModel employee)
+        {
+            if (employee != null)
+            {
+                Employees edtEmployee = new Employees()
+                {
+                    Email = employee.Email,
+                    EmployeeId = employee.EmployeeId,
+                    UnitId = employee.UnitId,
+                    ExtraInfo = employee.ExtraInfo,
+                    FirstName = employee.FirstName,
+                    LastName = employee.LastName,
+                    TelephoneNumber = employee.TelephoneNumber,
+                    WebSite = employee.WebSite
+                };
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    var stringData = JsonConvert.SerializeObject(edtEmployee);
+                    var contentData = new StringContent(stringData, System.Text.Encoding.UTF8, "application/json");
+                    var response = httpClient.PutAsync(URL, contentData).Result;
+                    Employees editedPersonnel = new Employees();
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    var responseUnit = JsonConvert.DeserializeObject<Employees>(jsonString);
+                    return responseUnit;
+                }
+
+            }
+            else
+            {
+                return null;
+            }
+        }
+
     }
 }

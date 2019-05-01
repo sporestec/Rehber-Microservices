@@ -46,6 +46,17 @@ namespace Rehber.Admin.Controllers
             var result = _employeesApiHelper.DeleteEmployee(id);
             return Json(result);
         }
-
+        [HttpGet]
+        public JsonResult GetEmployeeById([FromQuery]int employeeId)
+        {
+            var result = _employeesApiHelper.GetEmployeeById(employeeId);
+            return Json(result);
+        }
+        [HttpPost]
+        public IActionResult SaveEditing([FromBody] EmployeeViewModel edtEmployee)
+        {
+            var result = _employeesApiHelper.EditEmployee(edtEmployee);
+            return Json(result);
+        }
     }
 }
