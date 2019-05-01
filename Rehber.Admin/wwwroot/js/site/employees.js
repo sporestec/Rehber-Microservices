@@ -18,9 +18,6 @@ $(function () {
         $('#newEmployeeForm').trigger('reset');
         $('#addEmployeeModel').modal();
     });
-
-
-
     function getHire() {
         var source =
         {
@@ -117,34 +114,29 @@ $(function () {
         GetEmployees();
     });
 
-    $("#searchFirstName").change(function () {
+    $("#searchFirstName").keyup(delay(function (e) {
         firstName = $("#searchFirstName").val();
         GetEmployees();
-    });
-    $("#searchLastName").change(function () {
+    }, 500));
+
+
+    $("#searchLastName").keyup(delay(function (e) {
         lastName = $("#searchLastName").val();
         GetEmployees();
-    });
-    $("#searchEmail").change(function () {
+    }, 500));
+
+    $("#searchEmail").keyup(delay(function (e) {
         email = $("#searchEmail").val();
         GetEmployees();
-    });
-    $("#searchTelephone").change(function () {
+    }, 500));
+    $("#searchTelephone").keyup(delay(function (e) {
         telefon = $("#searchTelephone").val();
         GetEmployees();
-    });
-    $("#searchUnitName").change(function () {
+    }, 500));
+    $("#searchUnitName").keyup(delay(function (e) {
         unitName = $("#searchUnitName").val();
         GetEmployees();
-    });
-
-
-
-
-
-
-
-
+    }, 500));
     //END OF EMPLOYEE FUNCTIONS
 });
 
@@ -176,8 +168,6 @@ function deleteEmployee(id) {
 
 
 function GetEmployees() {
-    console.log(firstName);
-
     var eTable = $("#employeesTable");
     eTable.find("tr:gt(0)").empty();
     $('#noResult').text("Yükleniyor.....");
@@ -190,31 +180,30 @@ function GetEmployees() {
             + "&email=" + email
             + "&telephoneNumber=" + telefon
             + "&unitName=" + unitName
-
         ,
         success: function (list) {
             $('#noResult').hide();
-            if (list.length === 0) {
+            if (list === null || list.length === 0) {
                 $('#noResult').text("Kayıt Bulunmadı.....");
                 $('#noResult').show();
                 bulundu = false;
             }
             else {
                 bulundu = true;
-            }
-            for (var i = 0; i < list.length; i++) {
-                var row = "<tr class='row_" + list[i].employeeId + "'>" +
-                    "<td>" + list[i].firstName + "</td>" +
-                    "<td>" + list[i].lastName + "</td>" +
-                    "<td>" + list[i].unitName + "</td>" +
-                    "<td>" + list[i].telephoneNumber + "</td>" +
-                    "<td>" + list[i].email + "</td>" +
-                    "<td>" + list[i].webSite + "</td>" +
-                    "<td>" + list[i].extraInfo + "</td>" +
-                    "<td><a onclick='editEmployee(" + list[i].employeeId + ")' style='cursor:pointer'><i class='fa fa-edit'></i></a></td>" +
-                    "<td><a onclick='deleteEmployee(" + list[i].employeeId + ");' style='cursor:pointer'><i class='fa fa-trash'></i></a></td>" +
-                    "</tr>";
-                eTable.append(row);
+                for (var i = 0; i < list.length; i++) {
+                    var row = "<tr class='row_" + list[i].employeeId + "'>" +
+                        "<td>" + list[i].firstName + "</td>" +
+                        "<td>" + list[i].lastName + "</td>" +
+                        "<td>" + list[i].unitName + "</td>" +
+                        "<td>" + list[i].telephoneNumber + "</td>" +
+                        "<td>" + list[i].email + "</td>" +
+                        "<td>" + list[i].webSite + "</td>" +
+                        "<td>" + list[i].extraInfo + "</td>" +
+                        "<td><a onclick='editEmployee(" + list[i].employeeId + ")' style='cursor:pointer'><i class='fa fa-edit'></i></a></td>" +
+                        "<td><a onclick='deleteEmployee(" + list[i].employeeId + ");' style='cursor:pointer'><i class='fa fa-trash'></i></a></td>" +
+                        "</tr>";
+                    eTable.append(row);
+                }
             }
         },
         error: function () {
@@ -225,8 +214,10 @@ function GetEmployees() {
 }
 
 // Edit Employee
+var edtEmployeeId = 0;
 
 function editEmployee(employeeId) {
+    edtEmployeeId = employeeId;
     var edtFirstName = $('#edtInputEmployeeFirstName');
     var edtLastName = $('#edtInputEmployeeLastName');
     var edtEmail = $('#edtInputEmployeeEmail');
@@ -237,32 +228,34 @@ function editEmployee(employeeId) {
     $.ajax({
         type: "Get",
         url: "/Employee/GetEmployeeById?employeeId=" + employeeId,
-        success: function (personnel) {
+        success: function (employee) {
 
-            edtFirstName.val(personnel.firstName);
-            edtLastName.val(personnel.lastName);
-            edtEmail.val(personnel.email);
-            edtExtraInfo.val(personnel.extraInfo);
-            edtTelphoneNumber.val(personnel.telephoneNumber);
-            edtWebsite.val(personnel.webSite);
-            edtSelectedUnit.val(personnel.unitName);
-            $('#editEmployeeModel').attr('data-unitId', personnel.unitId);
-
+            edtFirstName.val(employee.firstName);
+            edtLastName.val(employee.lastName);
+            edtEmail.val(employee.email);
+            edtExtraInfo.val(employee.extraInfo);
+            edtTelphoneNumber.val(employee.telephoneNumber);
+            edtWebsite.val(employee.webSite);
+            edtSelectedUnit.val(employee.unitName);
+            $('#editEmployeeModel').attr('data-unitId', employee.unitId);
+            // $('#editEmployeeModel').attr('data-employeeId', edtEmployeeId);
         }
     });
-    $('#editEmployeeModel').attr('data-personnelId', employeeId);
+    console.log($('#editEmployeeModel').attr('data-unitId'));
+    //$('#editEmployeeModel').attr('data-employeeId', employeeId);
     $('#editEmployeeModel').modal();
 }
 $('#submitEdtEmployee').on('click', function () {
+    console.log(edtEmployeeId);
     var SelectedUnitEditModel = $('#jqxWidgeteditEmployee').jqxTree('getSelectedItem');
     if ($('#edtInputEmployeeFirstName').val() == "" || $('#edtInputEmployeeLastName').val() == "" || $('#edtInputEmployeeEmail').val() == "") {
         swal('Ad, soyad ve email boş bırakılmaz');
     }
     else {
 
-        var edtPersonnel =
+        var edtEmployee =
         {
-            personnelId: $('#editEmployeeModel').attr('data-personnelId'),
+            employeeId: edtEmployeeId,
             firstName: $('#edtInputEmployeeFirstName').val(),
             lastName: $('#edtInputEmployeeLastName').val(),
             email: $('#edtInputEmployeeEmail').val(),
@@ -270,28 +263,44 @@ $('#submitEdtEmployee').on('click', function () {
             webSite: $('#edtInputEmployeeWebsite').val(),
             telePhoneNumber: $('#edtInputEmployeePhoneNumber').val(),
             unitName: $('#edtSelectedParentUnit').val(),
-            unitId:0
+            unitId: 0
         }
-        if (SelectedUnitEditModel == null) edtPersonnel.unitId = $('#editEmployeeModel').attr('data-unitId');
-        else edtPersonnel.unitId = SelectedUnitEditModel.id;
-                    $.ajax({
-                        type: "Post",
-                        url: "/Employee/SaveEditing",
-                        data: JSON.stringify(edtPersonnel),
-                        contentType: 'application / json',
-                        success: function (personnel) {
-                            swal("Success!..");
-                            $("#employeesTable").empty();
-                            GetEmployees(pageNumber);
-                            $("#editEmployeeModel").modal("hide");
-                        },
-                        error: function (jqXHR, exception) {
-                            GetEmployees(pageNumber);
-                        }
-                      
+        if (SelectedUnitEditModel == null) edtEmployee.unitId = $('#editEmployeeModel').attr('data-unitId');
+        else edtEmployee.unitId = SelectedUnitEditModel.id;
+        $.ajax({
+            type: "Post",
+            url: "/Employee/SaveEditing",
+            data: JSON.stringify(edtEmployee),
+            contentType: 'application / json',
+            success: function (employee) {
+                swal("Success!..");
+                var eTable = $("#employeesTable");
+                eTable.find("tr:gt(0)").empty();
+                $('#noResult').text("Yükleniyor.....");
+                $('#noResult').show();
+                setTimeout(() => {
+                    GetEmployees();
+                }, 2500);
+                $("#editEmployeeModel").modal("hide");
+            },
+            error: function (jqXHR, exception) {
+                // GetEmployees();
+            }
 
-                    });
+
+        });
 
     }
 
 });
+
+function delay(callback, ms) {
+    var timer = 0;
+    return function () {
+        var context = this, args = arguments;
+        clearTimeout(timer);
+        timer = setTimeout(function () {
+            callback.apply(context, args);
+        }, ms || 0);
+    };
+}

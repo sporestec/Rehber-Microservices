@@ -21,9 +21,16 @@ namespace Rehber.Core.Helpers
             string query = filter.ToQueryString();
             using (WebClient httpClient = new WebClient())
             {
-                var jsonData = httpClient.DownloadString($"{URL}?{query}");
-                var data = JsonConvert.DeserializeObject<List<EmployeeViewModel>>(jsonData);
-                return data;
+                try
+                {
+                    var jsonData = httpClient.DownloadString($"{URL}?{query}");
+                    var data = JsonConvert.DeserializeObject<List<EmployeeViewModel>>(jsonData);
+                    return data;
+                }
+               catch (Exception e)
+                {
+                    return null;
+                }
             }
         }
 
