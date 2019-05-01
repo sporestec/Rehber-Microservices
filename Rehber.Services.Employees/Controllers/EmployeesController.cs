@@ -15,6 +15,7 @@ using System.Net.Http;
 using System.Runtime;
 using Microsoft.Extensions.Configuration;
 using Rehber.Core.Helpers;
+using Microsoft.EntityFrameworkCore;
 
 namespace Rehber.Services.EmployeesApi.Controllers
 {
@@ -89,6 +90,7 @@ namespace Rehber.Services.EmployeesApi.Controllers
             var unit = _unitApiHelper.GetById(employee.UnitId);
             if (employee != null)
             {
+                //_db.Entry(employee).State = EntityState.Modified;
                 _db.Employees.Update(employee);
                 _db.SaveChanges();
                 await _bus.Publish<IEmployeeUpdated>(new { Employee = employee.ToViewModel(unit.UnitName) });

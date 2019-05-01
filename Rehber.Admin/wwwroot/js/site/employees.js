@@ -45,6 +45,7 @@ $(function () {
         ]);
 
         $('#jqxWidgetAddEmployee').jqxTree({ source: records, width: '500px' });
+        $('#jqxWidgeteditEmployee').jqxTree({ source: records, width: '500px' });
     }
 
     // check Treeview item for adding model
@@ -55,8 +56,16 @@ $(function () {
         $('#selectedParentUnit').val(item.label);
     });
 
+    // check Treeview item for Editing  model
+    $('#jqxWidgeteditEmployee').on('select', function (event) {
+        var args = event.args;
+        var item = $('#jqxWidgeteditEmployee').jqxTree('getItem', args.element);
+        $('.form-check-label').css({ "color": "black", "font-weight": "normal" });
+        $('#edtSelectedParentUnit').val(item.label);
+    });
 
-    //submit add unit
+
+    //submit add employess
     $('#submitAddEmployee').click(function () {
         var selectedUnit = $('#jqxWidgetAddEmployee').jqxTree('getSelectedItem');
         if ($('#inputEmployeeFirstName').val() === '')
@@ -129,6 +138,13 @@ $(function () {
         GetEmployees();
     });
 
+
+
+
+
+
+
+
     //END OF EMPLOYEE FUNCTIONS
 });
 
@@ -195,7 +211,7 @@ function GetEmployees() {
                     "<td>" + list[i].email + "</td>" +
                     "<td>" + list[i].webSite + "</td>" +
                     "<td>" + list[i].extraInfo + "</td>" +
-                    "<td><a style='cursor:pointer'><i class='fa fa-edit'></i></a></td>" +
+                    "<td><a onclick='editEmployee(" + list[i].employeeId + ")' style='cursor:pointer'><i class='fa fa-edit'></i></a></td>" +
                     "<td><a onclick='deleteEmployee(" + list[i].employeeId + ");' style='cursor:pointer'><i class='fa fa-trash'></i></a></td>" +
                     "</tr>";
                 eTable.append(row);
@@ -207,3 +223,75 @@ function GetEmployees() {
         }
     });
 }
+
+// Edit Employee
+
+function editEmployee(employeeId) {
+    var edtFirstName = $('#edtInputEmployeeFirstName');
+    var edtLastName = $('#edtInputEmployeeLastName');
+    var edtEmail = $('#edtInputEmployeeEmail');
+    var edtWebsite = $('#edtInputEmployeeWebsite');
+    var edtExtraInfo = $('#edtInputEmployeeExtra');
+    var edtTelphoneNumber = $('#edtInputEmployeePhoneNumber');
+    var edtSelectedUnit = $('#edtSelectedParentUnit');
+    $.ajax({
+        type: "Get",
+        url: "/Employee/GetEmployeeById?employeeId=" + employeeId,
+        success: function (personnel) {
+
+            edtFirstName.val(personnel.firstName);
+            edtLastName.val(personnel.lastName);
+            edtEmail.val(personnel.email);
+            edtExtraInfo.val(personnel.extraInfo);
+            edtTelphoneNumber.val(personnel.telephoneNumber);
+            edtWebsite.val(personnel.webSite);
+            edtSelectedUnit.val(personnel.unitName);
+            $('#editEmployeeModel').attr('data-unitId', personnel.unitId);
+
+        }
+    });
+    $('#editEmployeeModel').attr('data-personnelId', employeeId);
+    $('#editEmployeeModel').modal();
+}
+$('#submitEdtEmployee').on('click', function () {
+    var SelectedUnitEditModel = $('#jqxWidgeteditEmployee').jqxTree('getSelectedItem');
+    if ($('#edtInputEmployeeFirstName').val() == "" || $('#edtInputEmployeeLastName').val() == "" || $('#edtInputEmployeeEmail').val() == "") {
+        swal('Ad, soyad ve email boş bırakılmaz');
+    }
+    else {
+
+        var edtPersonnel =
+        {
+            personnelId: $('#editEmployeeModel').attr('data-personnelId'),
+            firstName: $('#edtInputEmployeeFirstName').val(),
+            lastName: $('#edtInputEmployeeLastName').val(),
+            email: $('#edtInputEmployeeEmail').val(),
+            extraInfo: $('#edtInputEmployeeExtra').val(),
+            webSite: $('#edtInputEmployeeWebsite').val(),
+            telePhoneNumber: $('#edtInputEmployeePhoneNumber').val(),
+            unitName: $('#edtSelectedParentUnit').val(),
+            unitId:0
+        }
+        if (SelectedUnitEditModel == null) edtPersonnel.unitId = $('#editEmployeeModel').attr('data-unitId');
+        else edtPersonnel.unitId = SelectedUnitEditModel.id;
+                    $.ajax({
+                        type: "Post",
+                        url: "/Employee/SaveEditing",
+                        data: JSON.stringify(edtPersonnel),
+                        contentType: 'application / json',
+                        success: function (personnel) {
+                            swal("Success!..");
+                            $("#employeesTable").empty();
+                            GetEmployees(pageNumber);
+                            $("#editEmployeeModel").modal("hide");
+                        },
+                        error: function (jqXHR, exception) {
+                            GetEmployees(pageNumber);
+                        }
+                      
+
+                    });
+
+    }
+
+});
