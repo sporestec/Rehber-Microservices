@@ -14,7 +14,7 @@ namespace Rehber.Core.Helpers
 {
     public class ElasticsearchApiHelper
     {
-        private readonly static string URL = "http://localhost:1500/api/Employees";
+        private readonly static string URL = "http://localhost:1500/api/Employees/";
 
         public List<EmployeeViewModel> SearchEmployees(EmployeesSearch filter)
         {
@@ -31,6 +31,22 @@ namespace Rehber.Core.Helpers
                 {
                     return null;
                 }
+            }
+        }
+
+
+        public List<EmployeeViewModel> SearchByNameAndUnitId(SearchViewModel searchViewModel)
+        {
+            try
+            {
+                WebClient httpClient = new WebClient();
+                var jsonData = httpClient.DownloadString(URL + searchViewModel.employeeName + "/unit/" + searchViewModel.unitId);
+                var data = JsonConvert.DeserializeObject<List<EmployeeViewModel>>(jsonData);
+                return data;
+            }
+            catch (Exception)
+            {
+                return null;
             }
         }
 
