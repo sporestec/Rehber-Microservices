@@ -86,11 +86,12 @@ namespace Rehber.Services.EmployeesApi.Controllers
         [HttpPut]
         public async Task<IActionResult> PutAsync([FromBody] Employees employee)
         {
+            var unit = _unitApiHelper.GetById(employee.UnitId);
             if (employee != null)
             {
                 _db.Employees.Update(employee);
                 _db.SaveChanges();
-                await _bus.Publish<IEmployeeUpdated>(new { Employee = employee });
+                await _bus.Publish<IEmployeeUpdated>(new { Employee = employee.ToViewModel(unit.UnitName) });
                 return Ok(employee);
             }
             return BadRequest();

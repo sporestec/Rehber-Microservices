@@ -36,6 +36,7 @@ namespace Rehber.Services.Elasticsearch
                 {
                     e.Consumer(() => new EmployeeAddedConsumer());
                     e.Consumer(() => new EmployeeDeletedConsumer());
+                    e.Consumer(() => new EmployeeUpdatedConsumer());
                 });
             });
             _bus.StartAsync();

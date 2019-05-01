@@ -29,6 +29,17 @@ namespace Rehber.Services.Elasticsearch
             _client = new ElasticClient(settings);
         }
 
+        public void UpdateEmployee(EmployeeViewModel employee)
+        {
+            var del = _client.Delete<EmployeeViewModel>(employee.EmployeeId,
+                     r => r.Index("employeeviewmodel")
+                     );
+            var ind = _client.Index<EmployeeViewModel>(employee, idx => idx
+                    .Index("employeeviewmodel")
+                    .Id(employee.EmployeeId)
+                    );
+        }
+
         public void IndexEmployee(EmployeeViewModel employee)
         {
             if (!_client.IndexExists(Indices.All, ii => ii.Index("employeeviewmodel")).Exists)
@@ -37,9 +48,9 @@ namespace Rehber.Services.Elasticsearch
                 //Settings
                 .Settings(s => s
                 .Analysis(a => a
-                .TokenFilters(tf=>tf.PatternCapture("email",pc=>pc
-                .Patterns(new string[] {"([^@]+)", "(\\p{L}+)", "(\\d+)", "@(.+)", "([^-@]+)"})
-                .PreserveOriginal(true)))
+                .TokenFilters(tf => tf.PatternCapture("email", pc => pc
+                   .Patterns(new string[] { "([^@]+)", "(\\p{L}+)", "(\\d+)", "@(.+)", "([^-@]+)" })
+                   .PreserveOriginal(true)))
                 //Analyzers
                 .Analyzers(an => an
                 .Custom("email", cc => cc
@@ -47,9 +58,9 @@ namespace Rehber.Services.Elasticsearch
                  .Filters(new string[] { "email", "lowercase", "unique" })
                 ))))
                 //Mappings
-                .Mappings(m => m.Map("employeeviewmodel", mm=>mm.Properties<EmployeeViewModel>(ps=>ps.Text(
-                    te=>te.Name(P=>P.Email).Analyzer("email")
-                    )))));
+                .Mappings(m => m.Map("employeeviewmodel", mm => mm.Properties<EmployeeViewModel>(ps => ps.Text(
+                      te => te.Name(P => P.Email).Analyzer("email")
+                      )))));
             }
             var res = _client.Index<EmployeeViewModel>(employee, idx => idx
             .Index("employeeviewmodel")

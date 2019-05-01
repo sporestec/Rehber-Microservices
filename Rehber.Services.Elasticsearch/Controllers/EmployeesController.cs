@@ -59,7 +59,7 @@ namespace Rehber.Services.Elasticsearch.Controllers
                 filter.PageNumber = 1;
 
             var employees = _elasticClient.GetFilteredEmployees(filter);
-            if (employees != null)
+            if (employees != null && employees.Count > 0)
             {
                 return Ok(employees);
             }
