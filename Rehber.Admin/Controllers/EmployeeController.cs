@@ -46,7 +46,7 @@ namespace Rehber.Admin.Controllers
             using (var stream = new MemoryStream())
             {
                 await file.CopyToAsync(stream);
-                userImage.BinaryData = stream.ToArray();
+                userImage.BinaryData = Convert.ToBase64String(stream.ToArray());
                 userImage.EmployeeId = employeeId;
                 userImage.EmployeeName = firstName + " " + lastName;
             }
