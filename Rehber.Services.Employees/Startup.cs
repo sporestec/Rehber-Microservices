@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MassTransit;
 using Rehber.Model.MessageContracts;
+using Microsoft.AspNetCore.Http;
 
 namespace Rehber.Services.EmployeesApi
 {
@@ -26,8 +27,6 @@ namespace Rehber.Services.EmployeesApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-
 
             // Add framework services
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
@@ -62,6 +61,18 @@ namespace Rehber.Services.EmployeesApi
             }
 
             app.UseMvc();
+
+            app.Run(async (context) =>
+            {
+                if (context.Request.Path == "/" || context.Request.Path == "/version")
+                {
+                    await context.Response.WriteAsync("Rehber Employees API v1");
+                }
+                else
+                {
+                    context.Response.StatusCode = 404;
+                }
+            });
         }
     }
 }

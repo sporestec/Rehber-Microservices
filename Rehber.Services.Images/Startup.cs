@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -55,6 +56,19 @@ namespace Rehber.Services.ImagesApi
 
             app.UseHttpsRedirection();
             app.UseMvc();
+
+
+            app.Run(async (context) =>
+            {
+                if (context.Request.Path == "/" || context.Request.Path == "/version")
+                {
+                    await context.Response.WriteAsync("Rehber Images API v1");
+                }
+                else
+                {
+                    context.Response.StatusCode = 404;
+                }
+            });
         }
     }
 }

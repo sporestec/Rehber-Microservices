@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
@@ -57,11 +58,17 @@ namespace Rehber.Services.UnitsApi
 
             app.UseHttpsRedirection();
             app.UseMvc();
-            app.UseMvc(routes =>
+
+            app.Run(async (context) =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Units}/{action=Index}");
+                if (context.Request.Path == "/" || context.Request.Path == "/version")
+                {
+                    await context.Response.WriteAsync("Rehber Units API v1");
+                }
+                else
+                {
+                    context.Response.StatusCode = 404;
+                }
             });
         }
     }
