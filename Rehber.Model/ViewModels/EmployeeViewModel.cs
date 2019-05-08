@@ -1,4 +1,5 @@
-﻿using Rehber.Model.DataModels;
+﻿using Microsoft.AspNetCore.Http;
+using Rehber.Model.DataModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,8 @@ namespace Rehber.Model.ViewModels
         public string Email { get; set; }
         public string TelephoneNumber { get; set; }
         public string ExtraInfo { get; set; }
+
+
     }
 
     public static class EmployeeViewModelExtensions

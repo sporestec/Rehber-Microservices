@@ -33,10 +33,10 @@
 
     //submit add unit
     $('#submitAddUnit').click(function () {
-        if (inputUnitName.val() == '') {
+        if (inputUnitName.val() === '') {
             swal('Birim Adı giriniz');
         }
-        else if ($('#checkUnit').prop('checked') == false && $('#selectedParentUnit').val() == '') swal('hangi alan altında veya bağımsız birim secğiniz seciniz ');
+        else if ($('#checkUnit').prop('checked') === false && $('#selectedParentUnit').val() === '') swal('hangi alan altında veya bağımsız birim secğiniz seciniz ');
         else {
             $.ajax({
                 type: "POST",
@@ -116,7 +116,7 @@
                 url: "/Unit/GetUnitById?unitId=" + selectedItem.id,
                 success: function (data) {
                     $('#edtInputUnitName').val(data.unitName);
-                    if (data.parentId == null) {
+                    if (data.parentId === null) {
                         $("#edtCheckUnit").prop("checked", true);
                         $('#edtSelectedParentUnit').attr('parentId', "");
                     }
@@ -145,7 +145,7 @@
             parentName: $('#edtSelectedParentUnit').val()
         };
         console.log(parent);
-        if (parent != null) unitViewModel.parentId = parent.id;
+        if (parent !== null) unitViewModel.parentId = parent.id;
 
         console.log(JSON.stringify(unitViewModel));
         $.ajax({

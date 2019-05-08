@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Rehber.Core.Helpers;
+using Rehber.Data.DbContexts;
 using Rehber.Model.DataModels;
 using Rehber.Model.SearchModels;
 using Rehber.Model.ViewModels;
@@ -14,11 +18,13 @@ namespace Rehber.Admin.Controllers
     {
         EmployeesApiHelper _employeesApiHelper = null;
         ElasticsearchApiHelper _elasticsearchApiHelper = null;
+       ImageApiHelper imageApiHelper = null;
 
         public EmployeeController()
         {
             _employeesApiHelper = new EmployeesApiHelper();
             _elasticsearchApiHelper = new ElasticsearchApiHelper();
+            imageApiHelper = new ImageApiHelper();
         }
 
 
@@ -30,7 +36,21 @@ namespace Rehber.Admin.Controllers
         [HttpPost]
         public JsonResult AddEmployee([FromBody]Employees employee)
         {
-            var result = _employeesApiHelper.AddEmployee(employee);
+           var result = _employeesApiHelper.AddEmployee(employee);
+            return Json(result);
+        }
+        [HttpPost]
+        public async Task<ActionResult> AddEmployeeImage(IFormFile file, [FromQuery] string firstName, [FromQuery]string lastName, [FromQuery] int employeeId)
+        {
+            UserImages userImage = new UserImages();
+            using (var stream = new MemoryStream())
+            {
+                await file.CopyToAsync(stream);
+                userImage.BinaryData = stream.ToArray();
+                userImage.EmployeeId = employeeId;
+                userImage.EmployeeName = firstName + " " + lastName;
+            }
+            var result = imageApiHelper.AddEmployeeImage(userImage);
             return Json(result);
         }
 

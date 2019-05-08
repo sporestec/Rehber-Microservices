@@ -5,53 +5,53 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Rehber.Data.DbContexts;
+using Rehber.Data.DBContexts;
 using Rehber.Model.DataModels;
 
-namespace Rehber.Services.ImagesApi
+namespace Rehber.Services.ImagesApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class UserImagesController : ControllerBase
     {
-        private readonly RehberImageServiceDbContext _context;
+        private readonly RehberImageServisContext _context;
 
-        public UserImagesController(RehberImageServiceDbContext context)
+        public UserImagesController()
         {
-            _context = context;
+            _context = new RehberImageServisContext();
         }
 
         // GET: api/UserImages
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<UserImages>>> GetUserImage()
+        public async Task<ActionResult<IEnumerable<UserImages>>> GetUserImages()
         {
             return await _context.UserImages.ToListAsync();
         }
 
         // GET: api/UserImages/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<UserImages>> GetUserImage(int id)
+        public async Task<ActionResult<UserImages>> GetUserImages(int id)
         {
-            var userImage = await _context.UserImages.Where(x => x.UserId == id).SingleAsync();
+            var userImages = await _context.UserImages.FindAsync(id);
 
-            if (userImage == null)
+            if (userImages == null)
             {
                 return NotFound();
             }
 
-            return userImage;
+            return userImages;
         }
 
         // PUT: api/UserImages/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUserImage(int id, UserImages userImage)
+        public async Task<IActionResult> PutUserImages(int id, UserImages userImages)
         {
-            if (id != userImage.ImageId)
+            if (id != userImages.FotId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(userImage).State = EntityState.Modified;
+            _context.Entry(userImages).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace Rehber.Services.ImagesApi
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserImageExists(id))
+                if (!UserImagesExists(id))
                 {
                     return NotFound();
                 }
@@ -74,47 +74,33 @@ namespace Rehber.Services.ImagesApi
 
         // POST: api/UserImages
         [HttpPost]
-        public async Task<ActionResult<UserImages>> PostUserImage(UserImages userImage)
+        public  IActionResult PostUserImages([FromBody]UserImages userImages)
         {
-            _context.UserImages.Add(userImage);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (UserImageExists(userImage.ImageId))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            _context.UserImages.Add(userImages);
+             _context.SaveChanges();
 
-            return CreatedAtAction("GetUserImage", new { id = userImage.ImageId }, userImage);
+            return Ok(userImages);
         }
 
         // DELETE: api/UserImages/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<UserImages>> DeleteUserImage(int id)
+        public async Task<ActionResult<UserImages>> DeleteUserImages(int id)
         {
-            var userImage = await _context.UserImages.FindAsync(id);
-            if (userImage == null)
+            var userImages = await _context.UserImages.FindAsync(id);
+            if (userImages == null)
             {
                 return NotFound();
             }
 
-            _context.UserImages.Remove(userImage);
+            _context.UserImages.Remove(userImages);
             await _context.SaveChangesAsync();
 
-            return userImage;
+            return userImages;
         }
 
-        private bool UserImageExists(int id)
+        private bool UserImagesExists(int id)
         {
-            return _context.UserImages.Any(e => e.ImageId == id);
+            return _context.UserImages.Any(e => e.FotId == id);
         }
     }
 }

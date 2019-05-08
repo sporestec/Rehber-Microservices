@@ -44,7 +44,7 @@
     <h3 style="text-align:center" id="noResult"> Yükleniyor.....</h3>
 </div>
 
-
+@*Adding Employee Model*@
 <div class="modal fade" id="addEmployeeModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -55,30 +55,30 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="newEmployeeForm">
+                <form id="newEmployeeForm" enctype="multipart/form-data" method="post">
                     <div class="form-group">
                         <label>Ad *</label>
-                        <input type="text" class="form-control" id="inputEmployeeFirstName" placeholder="Ad yazınız">
+                        <input type="text" name="FirstName" class="form-control" id="inputEmployeeFirstName" placeholder="Ad yazınız">
                     </div>
                     <div class="form-group">
                         <label>Soyad *</label>
-                        <input type="text" class="form-control" id="inputEmployeeLastName" placeholder="Soyad yazınız">
+                        <input type="text" name="LastName" class="form-control" id="inputEmployeeLastName" placeholder="Soyad yazınız">
                     </div>
                     <div class="form-group">
                         <label>E-Posta Adresi</label>
-                        <input type="text" class="form-control" id="inputEmployeeEmail" placeholder="E-Posta Adresi yazınız">
+                        <input type="text" name="Email" class="form-control" id="inputEmployeeEmail" placeholder="E-Posta Adresi yazınız">
                     </div>
                     <div class="form-group">
                         <label>Telefon Numarası</label>
-                        <input type="text" class="form-control" id="inputEmployeePhoneNumber" placeholder="Telefon Numarası yazınız">
+                        <input type="text" name="TelephoneNumber" class="form-control" id="inputEmployeePhoneNumber" placeholder="Telefon Numarası yazınız">
                     </div>
                     <div class="form-group">
                         <label>Web Sitesi</label>
-                        <input type="text" class="form-control" id="inputEmployeeWebsite" placeholder="Web Sitesi yazınız">
+                        <input type="text" name="WebSite" class="form-control" id="inputEmployeeWebsite" placeholder="Web Sitesi yazınız">
                     </div>
                     <div class="form-group">
                         <label>Ekstra Bilgi</label>
-                        <input type="text" class="form-control" id="inputEmployeeExtra" placeholder="Ekstra Bilgi yazınız">
+                        <input type="text" name="ExtraInfo" class="form-control" id="inputEmployeeExtra" placeholder="Ekstra Bilgi yazınız">
                     </div>
                     <div class="form-group">
                         <label>Hangi birim altında olacak ? *</label>
@@ -90,6 +90,10 @@
 
                             </div>
                         </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Fotoğrf</label>
+                        <input type="file" class="form-control" id="inputImage">
                     </div>
                 </form>
             </div>
@@ -159,8 +163,30 @@
     </div>
 </div>
 
+@*Confirm Delete Model*@
 
 
+
+<div class="modal fade" id="deleteEmployeeModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p><span id="confirmDeleteEmployeeName"></span> Silmek Amin Misiniz?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                <button id="btnConfirmDeleteEmployee" type="button" class="btn btn-danger">Sil</button>
+            </div>
+        </div>
+    </div>
+</div>
+@*pagination*@
 <nav class="text-center" aria-label="Page navigation example">
     <ul class="pagination">
         <li class="page-item"><a id="lastPage" class="page-link" href="javascript:;">Önceki</a></li>

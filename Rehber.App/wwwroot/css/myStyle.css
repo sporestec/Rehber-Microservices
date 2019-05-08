@@ -71,3 +71,24 @@ body, html
     opacity:1;
     background-color:transparent;
 }
+._header
+{
+    height:40px;
+    margin-top:10px;
+   font-weight:bold;
+   font-size:30px;;
+}
+.icon {
+    width: 36px;
+    margin-top: 5px;
+    margin-left: 236px;
+}
+.icon:hover
+{
+    cursor:pointer;
+}
+.resetText{
+   color:red;
+   margin-left:230px;
+   display:none;
+}

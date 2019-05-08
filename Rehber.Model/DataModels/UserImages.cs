@@ -3,10 +3,11 @@ using System.Collections.Generic;
 
 namespace Rehber.Model.DataModels
 {
-    public class UserImages
+    public partial class UserImages
     {
-        public int ImageId { get; set; }
-        public int UserId { get; set; }
-        public byte[] ImageBinaryData { get; set; }
+        public int FotId { get; set; }
+        public byte[] BinaryData { get; set; }
+        public int? EmployeeId { get; set; }
+        public string EmployeeName { get; set; }
     }
 }

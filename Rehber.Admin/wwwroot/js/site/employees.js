@@ -7,7 +7,7 @@ var lastName = "";
 var unitName = "";
 var email = "";
 var telefon = "";
-
+var deletedEmployeeModel = 0;
 
 
 $(function () {
@@ -72,7 +72,6 @@ $(function () {
         else if ($('#inputEmployeeLastName').val() === '')
             swal('Soyad Bilgisi Zorunludur.');
         else {
-
             var employee = {
                 firstName: $('#inputEmployeeFirstName').val(),
                 lastName: $('#inputEmployeeLastName').val(),
@@ -80,15 +79,40 @@ $(function () {
                 telephoneNumber: $('#inputEmployeePhoneNumber').val(),
                 webSite: $('#inputEmployeeWebsite').val(),
                 unitId: selectedUnit.id,
-                extraInfo: $('#inputEmployeeExtra').val()
-            };
+                extraInfo: $('#inputEmployeeExtra').val(),
 
+            };
             $.ajax({
                 type: "POST",
                 url: "/Employee/AddEmployee",
                 data: JSON.stringify(employee),
                 contentType: "application/json",
-                success: function (employee) {
+                success: function (employeeData) {
+
+                    if (employeeData.result.employeeId !== null) {
+                        var fullName=
+                        {
+                            employeeId: employeeData.result.employeeId,
+                            firstName: employeeData.result.firstName,
+                            lastName: employeeData.result.lastName
+                        }
+                        console.log(fullName);
+                        //Add employee Image
+                        var formData = new FormData();
+                        formData.append('file', $('#inputImage')[0].files[0]);
+                        $.ajax({
+                            type: "POST",
+                            url: "/Employee/AddEmployeeImage?firstName=" + fullName.firstName + "&lastName=" + fullName.lastName + "&employeeId="+fullName.employeeId,
+                            data: formData,
+                            processData: false,
+                            cache: false,
+                            contentType: false,
+                            success: function (imageId) {
+                            }
+
+                        });
+                    }
+
                     swal("Başarıyla Eklendi..");
                     $("#addEmployeeModel").modal("hide");
                     getHire();
@@ -97,6 +121,7 @@ $(function () {
                     swal("Hata Oluştu Lütfen Tekrar Deneyiniz.")
                 }
             });
+
         }
     });
 
@@ -142,6 +167,7 @@ $(function () {
 
 //Functions
 function deleteEmployee(id) {
+ 
     $.ajax({
         type: "DELETE",
         url: "/Employee/DeleteEmployee?id=" + id,
@@ -200,7 +226,7 @@ function GetEmployees() {
                         "<td>" + list[i].webSite + "</td>" +
                         "<td>" + list[i].extraInfo + "</td>" +
                         "<td><a onclick='editEmployee(" + list[i].employeeId + ")' style='cursor:pointer'><i class='fa fa-edit'></i></a></td>" +
-                        "<td><a onclick='deleteEmployee(" + list[i].employeeId + ");' style='cursor:pointer'><i class='fa fa-trash'></i></a></td>" +
+                        "<td><a id='de' data-employeeName="+list[i].firstName+" onclick='deleteEmployeeModel(" + list[i].employeeId +");' style='cursor:pointer'><i class='fa fa-trash'></i></a></td>" +
                         "</tr>";
                     eTable.append(row);
                 }
@@ -215,6 +241,18 @@ function GetEmployees() {
 
 // Edit Employee
 var edtEmployeeId = 0;
+
+
+//Delete Employee
+function deleteEmployeeModel(id) {
+    deletedEmployeeModel = id;
+    $("#deleteEmployeeModel").modal();
+}
+$("#btnConfirmDeleteEmployee").click(function () {
+    deleteEmployee(deletedEmployeeModel);
+    $("#deleteEmployeeModel").modal("hide");
+
+});
 
 function editEmployee(employeeId) {
     edtEmployeeId = employeeId;
@@ -248,7 +286,7 @@ function editEmployee(employeeId) {
 $('#submitEdtEmployee').on('click', function () {
     console.log(edtEmployeeId);
     var SelectedUnitEditModel = $('#jqxWidgeteditEmployee').jqxTree('getSelectedItem');
-    if ($('#edtInputEmployeeFirstName').val() == "" || $('#edtInputEmployeeLastName').val() == "" || $('#edtInputEmployeeEmail').val() == "") {
+    if ($('#edtInputEmployeeFirstName').val() === "" || $('#edtInputEmployeeLastName').val() === "" || $('#edtInputEmployeeEmail').val() === "") {
         swal('Ad, soyad ve email boş bırakılmaz');
     }
     else {
@@ -265,7 +303,7 @@ $('#submitEdtEmployee').on('click', function () {
             unitName: $('#edtSelectedParentUnit').val(),
             unitId: 0
         }
-        if (SelectedUnitEditModel == null) edtEmployee.unitId = $('#editEmployeeModel').attr('data-unitId');
+        if (SelectedUnitEditModel === null) edtEmployee.unitId = $('#editEmployeeModel').attr('data-unitId');
         else edtEmployee.unitId = SelectedUnitEditModel.id;
         $.ajax({
             type: "Post",
@@ -293,6 +331,8 @@ $('#submitEdtEmployee').on('click', function () {
     }
 
 });
+
+
 
 function delay(callback, ms) {
     var timer = 0;
