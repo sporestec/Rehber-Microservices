@@ -92,3 +92,6 @@ body, html
    margin-left:230px;
    display:none;
 }
+.modal-header {
+    padding-top: 160px;
+}

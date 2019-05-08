@@ -29,17 +29,16 @@ namespace Rehber.Services.ImagesApi.Controllers
         }
 
         // GET: api/UserImages/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<UserImages>> GetUserImages(int id)
+        [HttpGet("{employeeId}")]
+        public  ActionResult GetUserImages(int employeeId)
         {
-            var userImages = await _context.UserImages.FindAsync(id);
+            var userImages =  _context.UserImages.Where(x => x.EmployeeId == employeeId).FirstOrDefault();
 
             if (userImages == null)
             {
-                return NotFound();
+                return null;
             }
-
-            return userImages;
+            return Ok(userImages);
         }
 
         // PUT: api/UserImages/5

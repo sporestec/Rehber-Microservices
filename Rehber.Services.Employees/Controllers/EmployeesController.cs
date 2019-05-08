@@ -46,7 +46,7 @@ namespace Rehber.Services.EmployeesApi.Controllers
                 var employee = _db.Employees.Where(x => x.EmployeeId == employeeId).FirstOrDefault();
                 if (employee != null)
                 {
-                    var unit = _unitApiHelper.GetById(employeeId);
+                    var unit = _unitApiHelper.GetById(employee.UnitId);
                     if (unit != null)
                     {
                         return Ok(employee.ToViewModel(unit.UnitName));

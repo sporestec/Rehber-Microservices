@@ -15,6 +15,8 @@ namespace Rehber.App.Controllers
     {
         UnitsApiHelper unitCrudWithApi = new UnitsApiHelper();
         ElasticsearchApiHelper ehelper = new ElasticsearchApiHelper();
+        EmployeesApiHelper employeesApiHelper = new EmployeesApiHelper();
+        ImageApiHelper imageApiHelper = new ImageApiHelper();
 
         public IActionResult Index()
         {
@@ -38,6 +40,18 @@ namespace Rehber.App.Controllers
             {
                 return Json("");
             }
+        }
+        [HttpPost]
+        public JsonResult GetEmployeeInfo([FromBody]int employeeId)
+        {
+           var employee = employeesApiHelper.GetEmployeeById(employeeId);
+            return Json(employee);
+        }
+        public JsonResult GetEmployeeFoto([FromBody]int employeeId)
+        {
+       
+            var employeeFoto = imageApiHelper.GetFotoByEmployeeId(employeeId);
+            return Json(employeeFoto);
         }
     }
 }
