@@ -133,16 +133,25 @@
 
             });
             //Get employee Foto
+            $("#imageREP").empty();
             $.ajax({
                 type: "Post",
                 data: JSON.stringify(employeeId),
                 contentType: "application/json",
                 url: "/Home/GetEmployeeFoto/",
                 success: function (employeeFoto) {
+                    if (employeeFoto !== null) {
+                        //$('#photo').src('data:image/jpeg;base64,' + hexToBase64(''+employeeFoto.binaryData+''));
+                        src = 'data:image/png;base64,' + btoa('' + employeeFoto.binaryData + '');
+                        $("#imageREP").append('<img id="photo" src="data: image / jpg; base64, ' + employeeFoto.binaryData + '"alt="" class= "pull-left" style = "margin: 0 20px 20px 0;width: 150px;" />');
+                    }
+                    else {
+                        $("#imageREP").append('<img id="errorImage" src="../images/error.jpg"' + '"alt="" class= "pull-left" style = "margin: 0 20px 20px 0;width: 150px;" />');
+                    }
 
-                    //$('#photo').src('data:image/jpeg;base64,' + hexToBase64(''+employeeFoto.binaryData+''));
-                    src = 'data:image/png;base64,' + btoa('' + employeeFoto.binaryData + '');
-                    $("#imageDiv").prepend('<img id="photo" src="data: image / jpg; base64, ' + employeeFoto.binaryData + '"alt="" class= "pull-left" style = "margin: 0 20px 20px 0;width: 150px;" />');
+                },
+                error: function (e) {
+                    $("#imageREP").append('<img src="../images/error.jpg"' + '"alt="" class= "pull-left" style = "margin: 0 20px 20px 0;width: 150px;" />');
                 }
             });
             $('#exampleModalCenter').modal('show');
